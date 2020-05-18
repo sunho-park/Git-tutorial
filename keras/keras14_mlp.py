@@ -30,7 +30,7 @@ from sklearn.model_selection import train_test_split
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)  #train (80,3) test(20,3)
 
-'''
+
 #x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, random_state=66, test_size=0.66)
 
 #x, y, random_state=99, shufle=True, test_size=0.4
@@ -64,9 +64,6 @@ from keras.layers import Dense
 model = Sequential()
 
 model.add(Dense(5, input_dim=3)) #1~100의 한 덩어리?
-model.add(Dense(10))
-model.add(Dense(10))
-model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))

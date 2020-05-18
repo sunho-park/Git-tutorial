@@ -1,4 +1,3 @@
-
 #1. 데이터
 
 import numpy as np
@@ -47,19 +46,17 @@ from keras.layers import Dense
 model = Sequential()
 
 model.add(Dense(5, input_dim=1)) #1~100의 한 덩어리?
-model.add(Dense(500))
-model.add(Dense(500))
-model.add(Dense(500))
-model.add(Dense(500))
-model.add(Dense(500))
-model.add(Dense(500))
-model.add(Dense(500))
+model.add(Dense(100))
+model.add(Dense(100))
+model.add(Dense(100))
+model.add(Dense(100))
+model.add(Dense(100))
+model.add(Dense(100))
+model.add(Dense(100))
 model.add(Dense(3))
 
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-
-
 
 model.fit(x_train, y_train, epochs=200, batch_size=1, validation_split=0.25)       # x_train : (60,3) x_val :(20,3), x_test :(20,3)
 

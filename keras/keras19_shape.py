@@ -7,37 +7,14 @@ y=np.array(range(711, 811))
 
 #행과 열을 바꾸는 함수
 x = np.transpose(x)
-#y = np.transpose(y)
-#x=np.swapaxes(x,0,1)
-#x=np.arange(300).reshape(100,3)
 
 print("x.shape = ", x.shape)
 print("y.shape = ", y.shape)
 
-# print("x = ", x)
-# print("y = ", y)
-
-
 from sklearn.model_selection import train_test_split
 
-x_train, x_test, y_train, y_test = train_test_split(x, y,shuffle=False, test_size=0.2) # train x = (80,3) test (20,3)
+x_train, x_test, y_train, y_test = train_test_split(x, y,shuffle=False, test_size=0.2)
 
-# print("x_train = ", x_train)
-# print("x_test = \n", x_test)
-
-
-# x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, random_state=66, test_size=0.66)
-
-# print("x_train = \n", x_train)
-# print("y_train = \n", y_train)
-# print("x_test = \n", x_test)
-# print("y_test = \n", y_test)
-
-# print("x_val = ", x_val)
-# print("y_val = ", y_val)
-
-
-'''
 # 2. 모델구성
 from keras.models import Sequential
 from keras.layers import Dense
@@ -46,14 +23,12 @@ from keras.layers import Dense
 
 model = Sequential()
 model.add(Dense(5, input_dim=3))
-model.add(Dense(10))
-model.add(Dense(10))
-model.add(Dense(10))
+model.add(Dense(4))
 model.add(Dense(1))
 
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=0.25)       # train (60.3), val(20.3),test(20,3)
+model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=0.25,verbose=0)
 
 # 4. 평가, 예측
 loss, mse = model.evaluate(x_test, y_test, batch_size=1) 
@@ -74,4 +49,4 @@ print("RMSE : ", RMSE(y_test, y_predict))
 
 from sklearn.metrics import r2_score
 r2 = r2_score(y_test, y_predict)
-print("r2 : ", r2) '''
+print("r2 : ", r2) 
