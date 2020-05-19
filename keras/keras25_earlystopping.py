@@ -9,13 +9,13 @@ y=np.array([range(101, 201), range(411, 511), range(100)])
 
 x1 = np.transpose(x1)
 x2 = np.transpose(x2)
+
 y = np.transpose(y)
 
 from sklearn.model_selection import train_test_split
 
-x1_train, x1_test, x2_train, x2_test, y_train, y_test = train_test_split(x1, y, x2, shuffle=False, test_size=0.1) 
-# x1_train, x1_test, y_train, y_test = train_test_split(x1, y, shuffle=False, test_size=0.1)
-# x2_train, x2_test = train_test_split(x2, shuffle=False, test_size=0.1)
+x1_train, x1_test, x2_train, x2_test, y_train, y_test = train_test_split(x1, y, x2, shuffle=False, test_size=0.2) 
+
 
 # 2. 모델구성
 from keras.models import Sequential, Model
@@ -49,12 +49,15 @@ model.summary()
 
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit([x1_train, x2_train], y_train, epochs=100, batch_size=1, validation_split=0.5, verbose=1) 
+
+from keras.callbacks import EarlyStopping
+early_stopping = EarlyStopping(monitor = 'loss', patience=155, mode='min')
+#그 시점에 돌입했을 때는 이미 안좋은 시점까지 들어간 구간. 따라서 가내수공업으로 그전값을 구해야함 팅기는 시점이 5번 정도 되는 시점의 mode의 종류 min, max, auto
+model.fit([x1_train, x2_train], y_train, epochs=1000, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping]) #기본적으로 리스트로 들어가있음
 
 # 4. 평가, 예측
 
 loss = model.evaluate([x1_test, x2_test], y_test, batch_size=1)
-# mse = model.evaluate([x1_test, x2_test], [y1_test, y2_test], batch_size=1)
 
 print("loss : ", loss)
 #print("mse = ", mse)

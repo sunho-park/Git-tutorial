@@ -16,7 +16,6 @@ from sklearn.model_selection import train_test_split
 x1_train, x1_test, y1_train, y1_test = train_test_split(x1, y1,shuffle=False, test_size=0.2)
 # x1_val, x1_test, y1_val, y1_test = train_test_split(x1_test, y1_test, test_size=0.5)
 
-from sklearn.model_selection import train_test_split
 x2_train, x2_test, y2_train, y2_test = train_test_split(x2, y2,shuffle=False, test_size=0.2)
 # x2_val, x2_test, y2_val, y2_test = train_test_split(x2_test, y2_test, test_size=0.5)
 
@@ -83,8 +82,8 @@ def RMSE(y_test, y_predict):
 RMSE1 = RMSE(y1_test, y1_predict)
 RMSE2 = RMSE(y2_test, y2_predict)
 
-print("RMSE1 : ", (RMSE1))
-print("RMSE2 : ", (RMSE2))
+print("RMSE1 : ", RMSE1)
+print("RMSE2 : ", RMSE2)
 print("RMSE : ", (RMSE1+RMSE2)/2)
 
 

@@ -20,7 +20,8 @@ print("y.shape = ", y.shape)
 
 from sklearn.model_selection import train_test_split
 
-x_train, x_test, y_train, y_test = train_test_split(x, y,shuffle=False, test_size=0.2) # train x = (80,3) test (20,3)
+x_train, x_test, y_train, y_test = train_test_split(x, y,shuffle=False, test_size=0.2)
+# train x = (80,3) test (20,3)
 
 # 2. 모델구성
 from keras.models import Sequential
@@ -37,7 +38,8 @@ model.add(Dense(1))
 
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=0.25,verbose=0)       # train (60.3), val(20.3),test(20,3)
+model.fit(x_train, y_train, epochs=10, batch_size=1, validation_split=0.25,verbose=0) 
+# train (60.3), val(20.3),test(20,3)
 
 # 4. 평가, 예측
 loss, mse = model.evaluate(x_test, y_test, batch_size=1) 

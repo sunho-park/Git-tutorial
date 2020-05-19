@@ -81,7 +81,7 @@ model.add(Dense(1))
 
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit(x_train, y_train, epochs=1200, batch_size=8, validation_split=0.01, verbose=3)       # train (60.3), val(20.3),test(20,3)
+model.fit(x_train, y_train, epochs=120, batch_size=8, validation_split=0.01, verbose=3)       # train (60.3), val(20.3),test(20,3)
 
 # 4. 평가, 예측
 loss, mse = model.evaluate(x_test, y_test, batch_size=8) 

@@ -72,12 +72,8 @@ model.fit([x1_train, x2_train], [y1_train, y2_train, y3_train], epochs=3, batch_
 loss = model.evaluate([x1_test, x2_test], [y1_test, y2_test, y3_test], batch_size=1)
 # mse = model.evaluate([x1_test, x2_test], [y1_test, y2_test], batch_size=1)
 
-
-
 print("loss : ", loss)
 #print("mse = ", mse)
-
-
 
 y1_predict, y2_predict, y3_predict = model.predict([x1_test, x2_test])  #(20, 3)
 
@@ -100,19 +96,13 @@ print("RMSE3 : ", (RMSE3))
 
 print("RMSE : ", (RMSE1+RMSE2+RMSE3)/3)
 
-
-
 # R2 구하기
 
 from sklearn.metrics import r2_score
 r2_1 = r2_score(y1_test, y1_predict)
 r2_2 = r2_score(y2_test, y2_predict)
 r2_3 = r2_score(y3_test, y3_predict)
-print("==============================================")
 print("R2_1 : ", r2_1)
-print("==============================================")
 print("R2_2 : ", r2_2)
-print("==============================================")
 print("R2_3 : ", r2_3)
-print("==============================================")
 print("R2 : ", (r2_1 + r2_2 + r2_3) / 3)
