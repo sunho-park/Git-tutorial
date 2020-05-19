@@ -6,7 +6,6 @@ x=np.array([range(1, 101), range(311, 411), range(100)])
 y=np.array([range(101, 201), range(711, 811),range(100)])
 
 
-
 print(x.shape) #(3,100)
 
 #행과 열을 바꾸는 함수  (3,100)--->(100,3)
@@ -19,17 +18,12 @@ print(y.shape)
 #x=np.swapaxes(x,0,1)
 #x=np.arange(300).reshape(100,3)
 
-
-
-
 # print("x = ", x)
 # print("y = ", y)
-
 
 from sklearn.model_selection import train_test_split
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)  #train (80,3) test(20,3)
-
 
 #x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, random_state=66, test_size=0.66)
 
