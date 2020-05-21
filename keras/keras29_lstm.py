@@ -4,9 +4,9 @@ from keras.layers import Dense, LSTM
 
 # 1. 데이터
 
-x = array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
+x = array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])  # y의 벡터크기 = x 행의수
 
-y = array([4, 5, 6, 7])        #(4, )마지막 괄호는 계산 하지 않기    
+y = array([4, 5, 6, 7])        #(4, )마지막 괄호는 계산 하지 않기, 
 
 '''
 y2= array([[4, 5, 6, 7]])      #(1, 4)
@@ -27,9 +27,7 @@ print("x.shape", x.shape)
 # 모델구성
 model = Sequential()
 model.add(LSTM(10, activation='relu', input_shape=(3, 1))) # (none, 3, 1)
-model.add(Dense(20))
-model.add(Dense(20))
-model.add(Dense(20))
+model.add(Dense(5))
 model.add(Dense(1))
 model.summary()
 
@@ -38,17 +36,17 @@ model.summary()
 model.compile(loss='mse', optimizer='adam')
 model.fit(x, y, epochs=100)
 
-x_input = array([5, 6, 7])  # 스칼라
+x_predict = array([5, 6, 7])  # 스칼라
 
-print("x_input", x_input)
-print("x_input.shape", x_input.shape)
-x_input = x_input.reshape(1, 3, 1)
+print("x_predict", x_predict)
+print("x_predict.shape", x_predict.shape)
+x_predict = x_predict.reshape(1, 3, 1)
 
-print("x_input : ",x_input)
-print("x_input : ", x_input)
+print("x_predict : ",x_predict)
+print("x_predict : ", x_predict)
 
-yhat = model.predict(x_input)
-print(yhat)
+y_predict = model.predict(x_predict)
+print(y_predict)
 
 #문제점 1. 데이터가 너무 적다. 2.
 

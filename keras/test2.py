@@ -6,8 +6,9 @@ from keras.layers import Dense, LSTM
 
 x = array([[1, 2, 3], [2, 3, 4], [3, 4, 5], [4, 5, 6]])
 
-y = array([4, 5, 6, 7])        #(4, )마지막 괄호는 계산 하지 않기    
+# y = array([4, 5, 6, 7])        #(4, )마지막 괄호는 계산 하지 않기    
 
+y = array([[4, 5, 6], [5, 6, 7], [6, 7, 8], [7, 8, 9]])
 
 '''
 y2= array([[4, 5, 6, 7]])      #(1, 4)
@@ -20,7 +21,7 @@ print("y.shape : ", y.shape)
 
 print("x : \n", x)
 # x = x.reshape(4, 3, 1) 
-x = x.reshape(x.shape[0], x.shape[1], 1)
+x = x.reshape(x.shape[0], x.shape[1], 0)
 
 '''
                 행,         열,     몇개씩 자르는지.
@@ -40,9 +41,8 @@ print("x.shape", x.shape)
 # 모델구성
 model = Sequential()
 #model.add(LSTM(10, activation='relu', input_shape=(3, 1))) # (none, 3, 1)
-model.add(LSTM(7, input_length=3, input_dim=1))
-model.add(Dense(4))
-model.add(Dense(1))
+model.add(LSTM(10, input_length=3, input_dim=1))
+model.add(Dense(3))
 model.summary()
 
 
@@ -57,7 +57,7 @@ print("x_predict.shape", x_predict.shape)
 x_predict = x_predict.reshape(1, 3, 1)
 
 print("x_predict : ",x_predict)
-print("x_predict.shape", x_predict.shape)
+print("x_predict : ", x_predict)
 
 y_predict = model.predict(x_predict)
 print(y_predict)
