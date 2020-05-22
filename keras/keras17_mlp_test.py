@@ -6,14 +6,22 @@ import numpy as np
 x=np.array([range(1, 101), range(311, 411), range(100)])
 y=np.array(range(711, 811))
 
+print("x.shape : ", x.shape)   
+print("y.shape : ", y.shape)   
 
 #행과 열을 바꾸는 함수
 x = np.transpose(x)
-#y = np.transpose(y)
+y = np.transpose(y)
 #x=np.swapaxes(x,0,1)
 #x=np.arange(300).reshape(100,3)
 
 
+print("x : \n", x)
+print("y : \n ", y)
+
+
+print("x.shape : ", x.shape)
+print("y.shape : ", y.shape)  
 
 from sklearn.model_selection import train_test_split
 
@@ -53,35 +61,11 @@ model.add(Dense(100))
 model.add(Dense(100))
 model.add(Dense(100))
 model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
-model.add(Dense(100))
 model.add(Dense(1))
 
 # 3. 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit(x_train, y_train, epochs=120, batch_size=8, validation_split=0.01, verbose=3)       # train (60.3), val(20.3),test(20,3)
+model.fit(x_train, y_train, epochs=12, batch_size=8, validation_split=0.01, verbose=3)       # train (60.3), val(20.3),test(20,3)
 
 # 4. 평가, 예측
 loss, mse = model.evaluate(x_test, y_test, batch_size=8) 

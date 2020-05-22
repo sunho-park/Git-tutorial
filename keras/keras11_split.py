@@ -27,7 +27,6 @@ from keras.layers import Dense
 model = Sequential()
 
 model.add(Dense(5, input_dim=1)) #1~100의 한 덩어리?
-
 model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))

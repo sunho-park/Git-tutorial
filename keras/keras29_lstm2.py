@@ -48,7 +48,7 @@ model.summary()
 
 # 3. 실행
 model.compile(loss='mse', optimizer='adam')
-model.fit(x, y, epochs=100)
+model.fit(x, y, epochs=10)
 
 x_predict = array([5, 6, 7])  # 스칼라
 

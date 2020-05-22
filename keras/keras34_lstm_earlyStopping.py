@@ -1,6 +1,7 @@
 #keras23_emesemble3.py
 #앙상블 
 #2개의 모델이 들어가서 하나의 모델이 나오게 
+#earlyStopping 적용하시오
 
 from numpy import array
 from keras.models import Sequential, Model
@@ -38,7 +39,7 @@ print("x.shape", x1.shape)
 # 모델구성
 #model.add(LSTM(10, activation='relu', input_shape=(3, 1))) # (none, 3, 1)
 # model.add(LSTM(10, input_length=3, input_dim=1))
-input1 = Input(shape=(3,1))
+input1 = Input(shape=(3, 1))
 dense1_1 = LSTM(10)(input1)
 dense1_1 = Dense(100)(dense1_1)
 dense1_1 = Dense(100)(dense1_1)
@@ -72,7 +73,10 @@ model.summary()
 
 # 3. 실행
 model.compile(loss='mse', optimizer='adam')
-model.fit([x1, x2], y, epochs=1500)
+
+from keras.callbacks import EarlyStopping
+early_stopping = EarlyStopping(monitor = 'loss', patience=50, mode='min')
+model.fit([x1, x2], y, epochs=1500, verbose=1, callbacks=[early_stopping])
 
 x1_predict = array([55, 65, 75])  
 x2_predict = array([65, 75, 85])

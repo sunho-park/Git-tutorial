@@ -52,7 +52,8 @@ model.compile(loss='mse', optimizer='adam', metrics=['mse'])
 
 from keras.callbacks import EarlyStopping
 early_stopping = EarlyStopping(monitor = 'loss', patience=155, mode='min')
-#그 시점에 돌입했을 때는 이미 안좋은 시점까지 들어간 구간. 따라서 가내수공업으로 그전값을 구해야함 팅기는 시점이 5번 정도 되는 시점의 mode의 종류 min, max, auto
+#그 시점에 돌입했을 때는 이미 안좋은 시점까지 들어간 구간. 따라서 가내수공업으로 그전값을 구해야함 
+#팅기는 시점이 5번 정도 되는 시점의 mode의 종류 min, max, auto
 model.fit([x1_train, x2_train], y_train, epochs=1000, batch_size=1, validation_split=0.25, verbose=1, callbacks=[early_stopping]) #기본적으로 리스트로 들어가있음
 
 # 4. 평가, 예측
