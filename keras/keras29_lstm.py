@@ -31,7 +31,6 @@ model.add(Dense(5))
 model.add(Dense(1))
 model.summary()
 
-
 # 3. 실행
 model.compile(loss='mse', optimizer='adam')
 model.fit(x, y, epochs=100)
@@ -46,7 +45,7 @@ print("x_predict : ",x_predict)
 print("x_predict : ", x_predict)
 
 y_predict = model.predict(x_predict)
-print(y_predict)
+print("y_predict : ", y_predict)
 
 #문제점 1. 데이터가 너무 적다. 2.
 

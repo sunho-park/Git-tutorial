@@ -20,7 +20,7 @@ x = x.reshape(x.shape[0], x.shape[1], 1)
                 행,         열,     몇개씩 자르는지.
 x의 shape = (batch_size, timesteps, feature)
 iuput_shape = (timesteps, feature)
-input_length = timesteps, 
+input_length = timesteps
 input_dim = feature
 
 lstm 3차원 인풋
@@ -31,7 +31,7 @@ print("x.shape", x.shape)
 
 # 모델구성
 model = Sequential()
-model.add(LSTM(10, activation='relu', input_shape=(3, 1), return_sequences=True)) # (none, 3, 1) 10은 노드의 갯수
+model.add(LSTM(10, activation='relu', input_shape=(3, 1), return_sequences=True)) # (none, 3, 10) 10은 노드의 갯수
 # model.add(LSTM(10, input_length=3, input_dim=1, return_sequences=True))   return_sequence = True 는 차원을 유지시켜준다. 3차원
 model.add(LSTM(10, return_sequences=False)) # LSTM 의 출력 값은 2차원
 model.add(Dense(5) )  #2차원
@@ -56,24 +56,22 @@ Trainable params: 1,381
 Non-trainable params: 0 '''
 
 
-
-
-'''
 # 3. 실행
 model.compile(loss='mse', optimizer='adam')
 model.fit(x, y, epochs=100)
 
 x_predict = array([5, 6, 7])  # 스칼라
 
-print("x_predict", x_predict)
-print("x_predict.shape", x_predict.shape)
+print("x_predict : \n", x_predict)
+print("x_predict.shape : ", x_predict.shape)
+
 x_predict = x_predict.reshape(1, 3, 1)
 
-print("x_predict : ",x_predict)
-print("x_predict.shape", x_predict.shape)
+print("x_predict :\n",x_predict)
+print("x_predict.shape :", x_predict.shape)
 
 y_predict = model.predict(x_predict)
-print(y_predict)'''
+print("y_predict : ", y_predict)
 
 
 

@@ -22,21 +22,26 @@ x_predict = x_predict.reshape(1, 3)
 print("x_predict.shape : ", x_predict.shape)   
 
 ##############################################################################################
+
+
 from sklearn.preprocessing import MinMaxScaler, StandardScaler, robust_scale, normalize
 
-#scaler = MinMaxScaler()
-
-scaler = StandardScaler()
+scaler = MinMaxScaler()        #정규화
+# scaler = StandardScaler()       #표준화
 
 scaler.fit(x)
 x = scaler.transform(x)  #fit 하고 tranform 해야함.
 x_predict = scaler.transform(x_predict)
+
+
 ##############################################################################################
+
 
 print("x : \n", x)
 print("x_predict : \n", x_predict)
 print("x_predict.shape : ", x_predict.shape)   
 print("================================================================")
+
 
 ################### 틀 변환 ###########################################
 # x = x.reshape(4, 3, 1) 
