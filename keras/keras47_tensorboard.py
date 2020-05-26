@@ -45,7 +45,7 @@ print("y.shape", y.shape)
 model=Sequential()
 model.add(LSTM(5, input_shape=(4, 1)))
 model.add(Dense(3))
-model.add(Dense(1, name='new4'))     #남의 것 떙겨와도 hyper parameter 튜닝해야함. transfer learning (전이 학습)
+model.add(Dense(1, name='new4'))     #남의 것 떙겨와도 hyper parameter 튜닝해야함. why? 데이터가 달라졌기 때문에transfer learning (전이 학습)
 model.summary()
 
 #3. 훈련
@@ -53,7 +53,8 @@ from keras.callbacks import EarlyStopping, TensorBoard
 
 tb_hist = TensorBoard(log_dir='graph', histogram_freq=0,
                         write_graph=True, write_images=True)
-# CMD창에서 D:\study1> tensorboard --logdir=.  // 텐서보드 웹서버를 실행하겠다. localhost는 내 PC IP(127.0.0.1), 127.0.0.1:6006 --> 6006번 포트를 쓰겠다, open하겠다.  
+# CMD창에서 D:\study1> tensorboard --logdir=.
+# 텐서보드 웹서버를 실행하겠다. localhost는 내 PC IP(127.0.0.1), 웹에 127.0.0.1:6006 입력 --> 6006번 포트를 쓰겠다, open하겠다.  
 early_stopping = EarlyStopping(monitor = 'loss', patience=5, mode='auto')
 
 model.compile(loss='mse', optimizer='adam', metrics=['acc'])

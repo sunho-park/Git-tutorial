@@ -1,12 +1,3 @@
-'''from numpy import array
-from keras.models import Sequential
-from keras.layers import Dense, LSTM
-
-
-x=np.array(range(1, 101))
-y=np.array([range(101, 201), range(711, 811), range(100)])
-
-y = np.transpose(y)'''
 from numpy import array
 from keras.models import Sequential
 from keras.layers import Dense, LSTM
