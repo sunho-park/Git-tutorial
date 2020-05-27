@@ -18,12 +18,11 @@ y = np.array([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]) #스칼라 10개 벡터 1 디멘션
 from keras.utils import np_utils # one-hot 인코딩 1차원이 2차원이 된다.
 y = np_utils.to_categorical(y)
 
-
 print(x.shape) 
 print(y.shape)   # (10, 6)
 print(y) 
 
-y=y[:, 1:6] 
+
 print(y.shape)   # (10, 5)
 print(y) 
 
@@ -35,14 +34,13 @@ model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))
-model.add(Dense(10))
-model.add(Dense(5, activation='softmax')) # y.shape = (10, 6)
+model.add(Dense(6, activation='softmax')) # y.shape = (10, 6)
 model.summary()
 
 # 3. 컴파일, 훈련
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(x, y, epochs=100, batch_size=1)
+model.fit(x, y, epochs=10, batch_size=1)
 
 
 # 4. 예측, 평가
@@ -58,6 +56,8 @@ print("y_predict : \n", y_predict)
 
 y_predict = np.argmax(y_predict, axis=1).reshape(-1)
 print("y_predict : \n", y_predict)
+
+# axis 제거할 축을 입력한다.
 
 # reshape ()의 -1이 의미하는 바는 변경된 배열의 -1 위치의 차원은 원래 배열의 길이와 남은 차원으로 부터 추정 rfriend.tistory.com/345
 # 과제 dim 을 6에서 5로 변경

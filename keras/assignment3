@@ -60,7 +60,7 @@ Total params: 943
 Trainable params: 943
 Non-trainable params: 0
 
-parameters 수 공식은 {(kernal-size)제곱*input+ biase } * kernal의 수  입니다.
+parameters 수 공식은 {(kernal_size)제곱*input+ biase } * kernal의 수  입니다.
 
 conv2d_1(Conv2D)가 50개 인 이유는 {(2*2)*1 + 1}*10 = 50 입니다.
 conv2d_2 (Conv2D)가 637개 인 이유는 {(3*3)*10 + 1}*7 = 637 입니다.

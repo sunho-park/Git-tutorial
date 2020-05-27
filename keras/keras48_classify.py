@@ -15,7 +15,7 @@ model.add(Dense(10, input_dim=1, activation='relu'))
 model.add(Dense(50, activation='relu'))
 model.add(Dense(50))                                      # 이렇게 써도 activation 에 디폴트 값이 있다.
 model.add(Dense(100, activation='relu'))
-model.add(Dense(1, activation='sigmoid'))                 # 1). 마지막 값에 sigmoid 를 곱해서 0 or 1 의 값을 출력한다. sigmoid 의 값 between 0 and 1
+model.add(Dense(1, activation='sigmoid'))                 # 1). 마지막 값에 sigmoid 를 곱해서 0 between 1 의 값을 출력한다.
 
 # 3. 컴파일, 훈련
 model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc']) # 분류모델에서는 평가지표 acc 쓴다 0과 1로 출력값이 분명하므로, 출력값이 딱떨어지지않을때 mse
