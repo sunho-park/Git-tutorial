@@ -2,7 +2,9 @@
 
 # x = [1, 2, 3]
 # x = x - 1
-# print(x)
+# print(x) 
+#
+# list + int 지원 안됨
 
 import numpy as np
 '''
