@@ -1,50 +1,68 @@
-import numpy as np
-import matplotlib.pyplot as plt 
-from keras.datasets import mnist
-
-(x_train, y_train), (x_test, y_test) = mnist.load_data()
+from sklearn.datasets import load_boston
 
 
-print("x_train.shape : ", x_train.shape)  #(60000, 28, 28)
-print("x_train : \n", x_train)
-print("x_train[0]: ", x_train[0])
-print('y_train : ', y_train[0])
+# (x_train, y_train), (x_test, y_test) = cifar100.load_data()
+'''
+data    : x 값
+target  : y 값
+'''
+dataset = load_boston()
+x  = dataset.data
+y = dataset.target
 
-print("x_test.shape : ", x_test.shape)    #(10000, 28, 28) 
+print("x : ", x)
 
-print("y_train.shape : ", y_train.shape) # (60000,) 6만개 스칼라를 가진 벡터1개
-print("y_test.shape : ", y_test.shape)   # (10000,)
+# 정규화
+from sklearn.preprocessing import MinMaxScaler
 
-print("x_train[0].shape : ", x_train[0].shape) #(28, 28)
+scaler = MinMaxScaler()      
 
-from keras.utils import np_utils
-y_train = np_utils.to_categorical(y_train)
-y_test = np_utils.to_categorical(y_test)
+scaler.fit(x)
+x = scaler.transform(x) 
 
-x_train = x_train.reshape(60000, 28, 28, 1).astype('float32')/255
-x_test = x_test.reshape(10000, 28, 28, 1).astype('float32')/255
 
-print("y_train : \n", y_train)
-print("y_train.shape : ", y_train.shape)
+# print('x_train[0] : ', x_train[0])
+# print('y_train[0] : \n', y_train[0])
+# print("x_train : \n", x_train)
+# print("x_test : \n", x_test)
+
+
+# 모델구성
 
 from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+
+from keras.layers import Dense
+
 
 model = Sequential()
-model.add(Conv2D(32, (1, 1), input_shape=(28, 28, 1)))
-model.add(MaxPooling2D(pool_size=(2, 2)))
-model.add(Conv2D(64, (3, 3)))
-model.add(Conv2D(128, (3, 3)))
-model.add(Flatten())
-model.add(Dense(10, activation='softmax'))
+
+model.add(Dense(10, input_shape = (13, )))
+model.add(Dense(50))
+model.add(Dense(50))
+model.add(Dense(50))
+model.add(Dense(50))
+model.add(Dense(50))
+model.add(Dense(50))
+model.add(Dense(1))
+
+model.summary()
 
 # 컴파일 훈련
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(x_train, y_train, epochs=7, batch_size=128, verbose=1, validation_split=0.2)
+model.compile(loss='mse', optimizer='adam', metrics=['acc'])
+model.fit(x, y, epochs=20, batch_size=1, verbose=1, validation_split=0.1)
 
-loss, acc = model.evaluate(x_test, y_test)
+# 훈련 평가
+
+loss, acc = model.evaluate(x, y)
 
 print("loss : ", loss)
 print("acc : ", acc)
+
+
+# output = model.predict(x_test)
+
+# print("output : \n", output)
+
+
 

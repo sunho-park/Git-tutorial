@@ -73,13 +73,16 @@ plt.title('loss & acc')
 plt.ylabel('loss, acc')
 plt.xlabel('epoch')
 plt.legend(['loss', 'val_loss', 'acc', 'val_acc'])
+
 # plt.legend(['train loss', 'test loss', 'train acc', 'test acc'])
-'''plt.plot(hist.history['acc'])
+'''
+plt.plot(hist.history['acc'])
 plt.plot(hist.history['val_acc'])
 plt.title('acc')
 plt.ylabel('acc')
 plt.xlabel('epoch')
-plt.legend(['acc', 'val_acc'])'''
+plt.legend(['acc', 'val_acc'])
+'''
 plt.show()
 
 

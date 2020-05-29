@@ -33,6 +33,7 @@ scaler.fit(x)
 x = scaler.transform(x)  #fit 하고 tranform 해야함.
 x_predict = scaler.transform(x_predict)
 
+# 정규화를 하는 이유 http://hleecaster.com/ml-normalization-concept/
 
 ##############################################################################################
 

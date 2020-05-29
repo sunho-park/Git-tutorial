@@ -33,8 +33,8 @@ from keras.layers import Dropout
 model= Sequential()
 model.add(LSTM(16, activation='relu', input_shape=(28, 28), return_sequences=False))
 model.add(Dense(32, activation='relu'))
-# model.add(Dense(32, activation='relu'))  
 
+# model.add(Dense(32, activation='relu'))  
 # model.add(Dense(64, activation='relu')) 
 # model.add(Dropout(0.40)) # 위 레이어의 20% 제거
 # model.add(Dense(128, activation='relu')) 
@@ -44,6 +44,7 @@ model.add(Dense(32, activation='relu'))
 # model.add(Flatten())
 # model.add(Dense(256, activation='relu'))
 # model.add(Dropout(0.6))
+
 model.add(Dense(10, activation='softmax'))
 model.summary()
 

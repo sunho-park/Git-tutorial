@@ -100,8 +100,8 @@ model.add(Dense(30))
 model.add(Dense(1))
 
 # 3. 훈련
-model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
-model.fit(x_train, y_train, epochs=9000, batch_size=1, validation_data = (x_test, y_test)) #훈련용 데이터로 훈련
+model.compile(loss='mse', optimizer='adam', metrics=['acc'])
+model.fit(x_train, y_train, epochs=90, batch_size=1, validation_data = (x_test, y_test)) #훈련용 데이터로 훈련
 
 # 4. 평가, 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=1) #훈련용 데이터와 평가용 데이터를 분리해야함

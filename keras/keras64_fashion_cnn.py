@@ -17,13 +17,14 @@ from keras.layers import Flatten, MaxPooling2D, Dropout
 
 (x_train, y_train), (x_test, y_test) = fashion_mnist.load_data()
 
-print(x_train[0])
-print('y_train[0] : ', y_train[3])
+print('x_train[0] : ', x_train[0])
+print('y_train[0] : \n', y_train[0])
 
-print(x_train.shape)
-print(x_test.shape)
-print(y_train.shape)
-print(y_test.shape)
+print("y_train : \n", y_train)
+print("y_test : ", y_test)
+print("y_train.shape : ", y_train.shape)
+print("y_test.shape : ", y_test.shape)
+
 
 # plt.imshow(x_train[0], 'gray')
 # plt.show()
@@ -41,7 +42,7 @@ x_test = x_test.reshape(10000, 28, 28, 1).astype('float32')/255
 
 # 모델 구성
 model = Sequential()
-'''
+
 model.add(Conv2D(32, (3, 3), activation='relu', input_shape = (28, 28, 1)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 model.add(Dropout(0.1))
@@ -84,7 +85,7 @@ model.add(Dropout(0.4))
 model.add(Dense(1024))
 model.add(Dropout(0.6))
 model.add(Dense(10, activation='softmax')) #91.xx
-
+'''
 model.summary()
 # 컴파일 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
