@@ -28,24 +28,28 @@ print(df.iloc[:,-1].value_counts())
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, shuffle=False, test_size=0.1)
 
-print("x_train.shape : ", x_train.shape)
-print("x_test.shape : ", x_test.shape)
+print("x_train.shape : ", x_train.shape)  # (512, 30)
+print("x_test.shape : ", x_test.shape)    # (57, 30)
 
-print("y_train.shape : ", y_train.shape)          
-print("y_test.shape : ", y_test.shape)   
+print("y_train.shape : ", y_train.shape)  #(512, )
+print("y_test.shape : ", y_test.shape)    #(57, )
+
+x_train = x_train.reshape(512, 30, 1, 1)
+x_test = x_test.reshape(57, 30, 1, 1)
+
 
 
 from keras.models import Sequential
-from keras.layers import Dense, LSTM, Conv2D
+from keras.layers import Dense, LSTM, Conv2D, Flatten
 
 # 2. 모델 구성
 model=Sequential()
 
-model.add(Dense(10, input_shape=(30, )))
-model.add(Dense(10, activation='relu'))
-model.add(Dense(10, activation='relu'))
-model.add(Dense(50, activation='relu'))                            
-model.add(Dense(100, activation='relu'))
+model.add(Conv2D(10, (1, 1), input_shape=(30, 1, 1)))
+model.add(Conv2D(10, (1, 1), activation='relu'))
+model.add(Conv2D(10, (1, 1), activation='relu'))
+model.add(Conv2D(50, (1, 1), activation='relu'))                            
+model.add(Flatten())
 model.add(Dense(1, activation='sigmoid'))            
 
 
