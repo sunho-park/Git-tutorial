@@ -50,11 +50,23 @@ model.add(Dense(1, activation='sigmoid'))
 
 
 # 3. 컴파일, 훈련
-model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(x_train, y_train, epochs=20, batch_size=1, verbose=1)   
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 
+model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['acc'])
+
+modelpath = './model/sample/cancer/check={epoch:2d}-{val_loss:.4f}.hdf5'
+checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss', verbose=1,
+                                save_best_only=True, save_weights_only=False)
+
+es = EarlyStopping(monitor='loss', patience=5, mode='auto')
+
+model.fit(x_train, y_train, epochs=20, batch_size=1, verbose=1, validation_split=0.2, callbacks=[es, checkpoint])   
+model.save('./model/sample/cancer/cancer_model_save.h5')
+model.save_weights('./model/sample/cancer/cancer_weight.h5')
 
 # 4. 평가, 예측
 loss, acc = model.evaluate(x_test, y_test, batch_size=1)
 print("loss : ", loss)
 print("acc : ", acc)
+
+model.save('./model/sample/cancer/82_cancer_dnn.py')

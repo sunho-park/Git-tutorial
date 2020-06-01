@@ -50,8 +50,11 @@ model.summary()
 
 # 컴파일, 훈련
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(x_train, y_train, epochs=15, batch_size=128, verbose=1, validation_split=1/6)
+model.fit(x_train, y_train, epochs=1, batch_size=128, verbose=1, validation_split=1/6)
 
+
+
+# 평가, 예측
 loss, acc = model.evaluate(x_test, y_test)
 
 print("loss : ", loss)

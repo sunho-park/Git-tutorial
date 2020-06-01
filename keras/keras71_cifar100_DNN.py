@@ -62,12 +62,15 @@ from keras.callbacks import EarlyStopping, ModelCheckpoint
 
 early_stopping = EarlyStopping(monitor='loss', patience=20)
 
-modelpath = './model/{epoch:02d}-{val_loss:.4f}.hdf5'
+modelpath = './model/sample/cifar100/check={epoch:02d}-{val_loss:.4f}.hdf5'
+
 checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss', save_best_only=True, mode='auto')
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
 hist = model.fit(x_train, y_train, epochs=15, batch_size=64, verbose=1, validation_split=0.4, callbacks=[early_stopping, checkpoint])
-            
+
+model.save('./model/sample/cifar100/cifar100_model_save.h5')    
+model.save_weights('./model/sample/cifar100/cifar100_weights.h5')    
 
 # 평가, 예측
 
@@ -109,3 +112,5 @@ plt.xlabel('epoch')
 plt.legend(['acc', 'val_acc'])
 
 plt.show()
+
+model.save('./model/sample/cifar100/71_cifar100_dnn.py')

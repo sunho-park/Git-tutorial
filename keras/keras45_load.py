@@ -43,7 +43,7 @@ print("y.shape", y.shape)
 from keras.models import load_model
 model = load_model('./model/save_keras44.h5')
 
-# from keras.layers import Dense
+# from keras.layers import Dense.
 model.add(Dense(15, name='new1'))  # 이 줄이 dense_1로 들어가서 dense_1 이 2번사용되서 충돌이 일어남 
 model.add(Dense(13, name='new2'))
 model.add(Dense(111, name='new3'))

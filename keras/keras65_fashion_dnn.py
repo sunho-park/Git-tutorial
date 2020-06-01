@@ -58,10 +58,23 @@ model.add(Dropout(0.4))
 model.add(Dense(10, activation='softmax'))
 
 # 컴파일 훈련
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(x_train, y_train, epochs=15, batch_size=128, verbose=1, validation_split=1/6)
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 
+model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
+modelpath='./model/sample/fashion/check={epoch:02d}-{val_loss:.4f}.hdf5'
+
+checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss',
+                        verbose=1, save_best_only=True, save_weights_only=False)
+es = EarlyStopping(monitor='loss', patience=5, mode='auto')
+
+model.fit(x_train, y_train, epochs=15, batch_size=128, verbose=1, validation_split=1/6, callbacks=[es, checkpoint])
+model.save('./model/sample/fashion/fashion_model_save.h5')
+model.save_weights('./model/sample/fashion/fashion_weight.h5')
+
+# 평가 예측
 loss, acc = model.evaluate(x_test, y_test)
 
 print("loss : ", loss)
 print("acc : ", acc)
+
+model.save('./model/sample/fashion/65_fashion_dnn.py')

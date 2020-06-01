@@ -50,10 +50,24 @@ model.summary()
 
 # 컴파일 훈련
 
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc'])
-model.fit(x_train, y_train, epochs=15, batch_size=128, verbose=1 ,validation_split=0.2)
+modelpath = './model/sample/cifar10/check={epoch:02d}-{val_loss:.4f}.hdf5'
+
+checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss', verbose=1,
+                            save_best_only=True, save_weights_only=False)
+
+es = EarlyStopping(monitor='loss', patience=5, mode='auto')
+
+model.fit(x_train, y_train, epochs=15, batch_size=128, verbose=1 ,validation_split=0.2, callbacks=[es, checkpoint])
+model.save('./model/sample/cifar10/cifar10_model_save.h5')
+model.save_weights('./model/sample/cifar10/cifar10_weight.h5')
+
+# 평가 예측
 
 loss, acc = model.evaluate(x_test, y_test)
 
 print("loss : ", loss)
 print("acc : ", acc)
+
+model.save('./model/sample/cifar10/61_cifar10_dnn.py')

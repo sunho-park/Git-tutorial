@@ -37,9 +37,6 @@ print("y_test : ", y_test)
 print("y_train.shape : ", y_train.shape)          # (455, )
 print("y_test.shape : ", y_test.shape)            # (51, )
 
-
-
-
 # print("x_train : \n", x_train)
 # print("x_test : \n", x_test)
 
@@ -65,9 +62,25 @@ model.add(Dense(1))
 model.summary()
 
 # 컴파일 훈련
+from keras.callbacks import EarlyStopping, ModelCheckpoint
 
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit(x_train, y_train, epochs=20, batch_size=1, verbose=1, validation_split=0.1)
+
+modelpath = './model/sample/boston/check={epoch:02d}-{val_loss:.4f}.hdf5'
+
+checkpoint = ModelCheckpoint(filepath=modelpath, monitor='val_loss', 
+                                verbose=1,
+                                save_best_only=True, save_weights_only=False)
+
+es = EarlyStopping(monitor='loss', patience=5, mode='auto')
+
+model.fit(x_train, y_train, epochs=30, batch_size=1, 
+            verbose=1, validation_split=0.1, callbacks=[es, checkpoint])
+
+model.save('./model/sample/boston/boston_model_save.h5')
+
+model.save_weights('./model/sample/boston/boston_weight.h5')
+
 
 # 훈련 평가
 
@@ -76,3 +89,4 @@ loss, mse = model.evaluate(x_test, y_test)
 print("loss : ", loss)
 print("mse : ", mse)
 
+model.save('./model/sample/boston/73_boston_dnn.py')
