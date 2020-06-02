@@ -1,8 +1,8 @@
 import numpy as np
 import pandas as pd
 
-kospi200 = np.load('./data/kospi200/data/kospi200.npy')
-samsung = np.load('./data/kospi200/data/samsung.npy')
+kospi200 = np.load('./data/kospi200/data/kospi200.npy', allow_pickle=True)
+samsung = np.load('./data/kospi200/data/samsung.npy',  allow_pickle=True)
 
 print('kospi200 : \n', kospi200)
 print('samsung : \n', samsung)
@@ -45,9 +45,58 @@ print(x_test.shape)
 print(y_train.shape)
 print(y_test.shape)
 
+# x_train = np.reshape(x_train, x_train)
+
 x_train = x_train.reshape(294, 25)
 x_test = x_test.reshape(127, 25)
 
 print(x_train.shape)
 print(x_test.shape)
+
+# 표준화
+
+from sklearn.preprocessing import StandardScaler
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train_scaled = scaler.transform(x_train)
+x_test_scaled = scaler.transform(x_test)
+print(x_train_scaled[0, :])
+
+from keras.models import Sequential
+from keras.layers import Dense
+# 모델 구성
+model = Sequential()
+model.add(Dense(64, input_shape=(25, )))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(32, activation='relu'))
+model.add(Dense(1))
+
+# 훈련
+
+model.compile(loss='mse', optimizer='adam', metrics=['mse'])
+from keras.callbacks import EarlyStopping
+es = EarlyStopping(patience=20)
+
+model.fit(x_train_scaled, y_train, validation_split=0.2, verbose=1, batch_size=1, epochs=100, callbacks=[es])
+
+#평가
+
+loss, mse = model.evaluate(x_test_scaled, y_test, batch_size=1)
+print('loss : ', loss)
+print('mse : ', mse)
+
+
+y_predict  = model.predict(x_test_scaled)
+
+for i in range(5):
+    print('종가 : ', y_test[i], '/예측가 :', y_predict[i] )
+
+
+
+
+
+
+
 

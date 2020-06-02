@@ -6,14 +6,14 @@ df1 = pd.read_csv("./data/kospi200/data/kospi200.csv", index_col=0,
 
 print("kospi200 : ", df1)
 print(df1.shape)
-
+print(type(df1))
 
 df2 = pd.read_csv("./data/kospi200/data/samsung.csv", index_col=0,
                     header=0, encoding='cp949', sep=',')
 
 print("samsung : ", df2)
 print(df2.shape)
-
+print(type(df2))
 # kospi 200의 거래량
 
 for i in range(len(df1.index)):            # 거래량 str -> int 변경
