@@ -161,8 +161,8 @@ print("mse : ", mse)
 print('x1_test :', x1_test)
 print('x2_test : ', x2_test)
 
-print('x1_test.shape : ', x1_test.shape)    # 152, 5
-print('x2_test.shape : ', x2_test.shape)    # 152, 25      
+print('x1_test.shape : ', x1_test.shape)    # (152, 5)
+print('x2_test.shape : ', x2_test.shape)    # (152, 25)      
 
 
 y1_pred = model.predict([x1_test, x2_test])
@@ -178,8 +178,8 @@ print('x2.shape : ', x2.shape)     # (504, 25)
 print('x1[-1]', x1[-1])
 print('x2[-1]', x2[-1])
 
-print('x1[-1].shape', x1[-1].shape)
-print('x2[-1].shape', x2[-1].shape)
+print('x1[-1].shape', x1[-1].shape)     # (5, )
+print('x2[-1].shape', x2[-1].shape)     # (25, )
 
 y1_predict = model.predict([[x1[-1]], [x2[-1]]])
 print('y1_predict : ', y1_predict)

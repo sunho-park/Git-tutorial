@@ -1,11 +1,9 @@
 # keras 67 복붙 
 
-
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.datasets import mnist
 from keras.callbacks import EarlyStopping, ModelCheckpoint
-
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 

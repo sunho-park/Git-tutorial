@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-df1 = pd.read_csv("./data/csv/하이트 주가.csv", header=0, encoding='cp949', index_col=0, sep=',')
+df1 = pd.read_csv('./data/csv/hite.csv', header=0, encoding='cp949', index_col=0, sep=',')
 
 # df1 = df1.dropna()
 
@@ -14,7 +14,7 @@ print(df1.shape)
 print(type(df1))
 
 
-df2 = pd.read_csv("./data/csv/삼성전자 주가.csv", header=0, encoding='cp949', index_col=0, sep=',')
+df2 = pd.read_csv('./data/csv/samsung.csv', header=0, encoding='cp949', index_col=0, sep=',')
 
 df2 = df2.dropna()
 

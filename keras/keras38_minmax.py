@@ -36,9 +36,8 @@ x_predict = scaler.transform(x_predict)
 # 정규화를 하는 이유 http://hleecaster.com/ml-normalization-concept/
 
 ##############################################################################################
-
-
 print("x : \n", x)
+
 print("x_predict : \n", x_predict)
 print("x_predict.shape : ", x_predict.shape)   
 print("================================================================")

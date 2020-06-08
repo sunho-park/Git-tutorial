@@ -14,7 +14,6 @@ y = y - 1    #numpy 에서만 가능
 
 print(y)
 
-
 from keras.utils import np_utils
 y = np_utils.to_categorical(y)
 
