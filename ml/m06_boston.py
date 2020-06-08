@@ -58,7 +58,7 @@ acc = accuracy_score(y_test, y_predict)
 print('score : ', score)
 print("test r2 : ", R2) 
 print("acc : ", acc)
-# 만약에 acc이 나온다면 acc함정 r2값이 acc로 나오는거라서 주의해야함
+# 만약에 acc이 나온다면 acc함정 r2값이 acc로 나오는거라서 주의해야함. 분류모델은 acc이 나오고 회귀모델은 R2 값이 나옴
 # continuous is not supported tells me you're trying to do "something" from regression domain on classification domain.
 
 # from sklearn.metrics import r2_score

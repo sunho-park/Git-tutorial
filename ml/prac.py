@@ -1,34 +1,33 @@
-from sklearn.datasets import boston
-from sklearn import datasets
+import pandas as pd
+from sklearn.model_selection import train_test_split, KFold, cross_val_score
+from sklearn.metrics import accuracy_score
+from sklearn.utils.testing import all_estimators
+import warnings
 
-from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
-from sklearn.svm import SVC, LinearSVC
-from sklearn.neighbors import KNeighborsRegressor, KNeighborsClassifier
 
-from sklearn.metrics import r2_score, accuracy_score
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-boston = datasets.load_boston
-x = boston.data
-y = boston.target
+warnings.filterwarnings('ignore')
 
-x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2)
 
-scaler = StandardScaler
-scaler.fit(x_train)
-x_train = scaler.transform(x_train)
-x_test = scaler.transform(x_test)
+iris = pd.read_csv('./data/csv/iris.csv', header=0)
 
-#모델 
+x = iris.iloc[:, 0:4]
+y = iris.iloc[:, 4]
 
-model = RandomForestRegressor()
 
-# 훈련
-model.fit(x_train, y_train)
+kfold = KFold(n_splits=5, shuffle=True)
 
-score = model.score(x_test, y_test)
-y_pred = model.predict(x_test)
+allAlgorithms = all_estimators(type_filter='classifier')
 
-acc = accuracy_score(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
+for (name, algorithm) in allAlgorithms:
+    model = algorithm()
+
+    scores = cross_val_score(model, x, y, cv=kfold) # cv = cross validation
+
+    print(name, "의 정답률 = ")
+    print(scores)
+
+import sklearn
+print(sklearn.__version__)
+
+

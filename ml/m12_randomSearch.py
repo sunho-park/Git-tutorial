@@ -40,22 +40,14 @@ parameters = {
 'max_features': ["auto", "sqrt", "log2"]
 }
 '''
-'''
-parameters = [
-    {"C": [1, 10, 100, 1000], "kernel":["linear"]},
-    {"C": [1, 10, 100, 1000], "kernel":["rbf"], "gamma":[0.001, 0.0001]},
-    {"C": [1, 10, 100, 1000], "kernel":["sigmoid"], "gamma":[0.001, 0.0001]}
-    
-    ]
-'''
 parameters = {}
 
 Kfold = KFold(n_splits=5, shuffle=True)
-model = GridSearchCV(RandomForestClassifier(), parameters, cv=Kfold, n_jobs=-1, verbose=1)
-
+model = RandomizedSearchCV(RandomForestClassifier(), parameters, cv=Kfold, n_jobs=-1, verbose=1)
+# GridSearchCV를 넣어도 돌아감
 # 20% 검증셋을 넣겟다.
 # 80% train 중 20% cross validaiton을 하겠다.
-
+# cv = cross validation
 model.fit(x_train, y_train)
 
 print("최적의 매개변수 : ", model.best_estimator_)
@@ -64,4 +56,13 @@ y_pred = model.predict(x_test)
 print("최종 정답률 = ", accuracy_score(y_test, y_pred))
 
 
-# https://lsjsj92.tistory.com/542
+# 최적의 매개변수 :  RandomForestClassifier(bootstrap=True, class_weight=None, criterion='gini',
+#             max_depth=None, max_features='auto', max_leaf_nodes=None,
+#             min_impurity_decrease=0.0, min_impurity_split=None,
+#             min_samples_leaf=1, min_samples_split=2,
+#             min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=None,
+#             oob_score=False, random_state=None, verbose=0,
+#             warm_start=False)
+
+# 최종 정답률 =  0.9473684210526315
+

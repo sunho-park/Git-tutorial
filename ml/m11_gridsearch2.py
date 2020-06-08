@@ -38,15 +38,6 @@ parameters = {
 'min_samples_leaf': [1, 2, 5, 10],
 'max_features': ["auto", "sqrt", "log2"]
 }
-'''
-
-parameters = [
-    {"C": [1, 10, 100, 1000], "kernel":["linear"]},
-    {"C": [1, 10, 100, 1000], "kernel":["rbf"], "gamma":[0.001, 0.0001]},
-    {"C": [1, 10, 100, 1000], "kernel":["sigmoid"], "gamma":[0.001, 0.0001]}
-    
-    ]
-'''
 
 Kfold = KFold(n_splits=5, shuffle=True)
 model = GridSearchCV(RandomForestClassifier(), parameters, cv=Kfold, n_jobs=-1, verbose=1)
@@ -62,4 +53,14 @@ y_pred = model.predict(x_test)
 print("최종 정답률 = ", accuracy_score(y_test, y_pred))
 
 
+'''
+최적의 매개변수 :  RandomForestClassifier(bootstrap=True, class_weight=None, criterion='entropy',
+            max_depth=10, max_features='log2', max_leaf_nodes=None,
+            min_impurity_decrease=0.0, min_impurity_split=None,
+            min_samples_leaf=1, min_samples_split=2,
+            min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=None,
+            oob_score=False, random_state=None, verbose=0,
+            warm_start=False)
+최종 정답률 =  1.0
+'''
 # https://lsjsj92.tistory.com/542

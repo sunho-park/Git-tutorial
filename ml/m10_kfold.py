@@ -25,7 +25,7 @@ allAlgorithms = all_estimators(type_filter='classifier')
 for (name,algorithm) in allAlgorithms: #(26개 모델) 반환값 name model 
     model = algorithm()
     
-    scores = cross_val_score(model, x, y, cv=kfold)
+    scores = cross_val_score(model, x, y, cv=kfold) # kfold 의 숫자만큼 돌아감
 
     print(name, "의 정답률 = ")
     print(scores)

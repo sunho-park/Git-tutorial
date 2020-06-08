@@ -22,7 +22,7 @@ parameters = [
 
 
 Kfold = KFold(n_splits=5, shuffle=True)
-model = GridSearchCV(SVC(), parameters, cv=Kfold)
+model = GridSearchCV(SVC(), parameters, cv=Kfold) # cv = kfold 의 갯수 만큼 돌아가는 것 또는 지정한 숫자만큼
 # 20% 검증셋을 넣겟다.
 # 80% train 중 20% cross validaiton을 하겠다.
 
@@ -32,8 +32,6 @@ print("최적의 매개변수 : ", model.best_estimator_)
 y_pred = model.predict(x_test)
 
 print("최종 정답률 = ", accuracy_score(y_test, y_pred))
-
-
 
 
 
