@@ -26,7 +26,7 @@ print('submission.shape : ', submission.shape)          # (10000, 4)    : y_pred
 
 # print(train.isnull().sum())
 
-train = train.interpolate()  # 보건법 // 선형 보간 / 컬람별 옆의 컬럼에 영향 미치지 않음
+train = train.interpolate()  # 보건법 // 선형 보간 / 칼럼별 옆의 컬럼에 영향 미치지 않음
 # print(train.isnull().sum())
 
 train.fillna(method='bfill', inplace=True)
@@ -113,7 +113,7 @@ print('MAE : ', mae)
 # print('mae : ', mean_absolute_error(y_test, y_predict))
 
 
-a = np.arange(10000,20000)
+a = np.arange(10000, 20000)
 y_predict = pd.DataFrame(y_predict,a)
 y_predict.to_csv('./data/dacon/comp1/sample_submission.csv', index = True, header=['hhb','hbo2','ca','na'],index_label='id')
 
