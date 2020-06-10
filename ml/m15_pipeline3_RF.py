@@ -1,11 +1,12 @@
 # RandomizedSearchCV + Pipeline
-
 import pandas as pd
 import numpy as np
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.svm import SVC
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
+from sklearn.ensemble import RandomForestClassifier
+
 
 # 1. 데이터
 iris = load_iris()
@@ -26,22 +27,14 @@ parameters = [
 '''
 '''
 parameters = [
-    {"malddong__C" :[1, 10, 100, 1000], "malddong__kernel" :['linear']},
-    {"malddong__C" :[1, 10, 100], "malddong__kernel" :['rbf'], 'malddong__gamma':[0.001, 0.0001]},
-    {"malddong__C" :[1, 100, 1000], "malddong__kernel" :['sigmoid'], 'malddong__gamma':[0.001, 0.0001]}
-]
-'''
-'''
-parameters = [
     {"C" :[1, 10, 100, 1000], "kernel" :['linear']},
     {"C" :[1, 10, 100], "kernel" :['rbf'], 'gamma':[0.001, 0.0001]},
     {"C" :[1, 100, 1000], "kernel" :['sigmoid'], 'gamma':[0.001, 0.0001]}
 ]
 '''
 parameters = [
-    {"svc__C" :[1, 10, 100, 1000], "svc__kernel" :['linear']},
-    {"svc__C" :[1, 10, 100], "svc__kernel" :['rbf'], 'svc__gamma':[0.001, 0.0001]},
-    {"svc__C" :[1, 100, 1000], "svc__kernel" :['sigmoid'], 'svc__gamma':[0.001, 0.0001]}
+    {"rf__n_jobs" :[1], "rf__n_estimators" : [100, 200], "rf__criterion" : ['gini', 'entropy']},
+    {"rf__min_samples_leaf" : [1, 2], "rf__max_features" : [1, 2]}
 ]
 
 # 2. 모델
@@ -50,9 +43,8 @@ parameters = [
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-# pipe = Pipeline([("scaler", MinMaxScaler()), ('svm', SVC())])
-# pipe = Pipeline([("scaler", MinMaxScaler()), ('malddong', SVC())])
-pipe = make_pipeline(MinMaxScaler(), SVC())
+pipe = Pipeline([("scaler", MinMaxScaler()), ('rf', RandomForestClassifier())])
+# pipe = make_pipeline(MinMaxScaler(), RandomForestClassifier())
 
 model = RandomizedSearchCV(pipe, parameters, cv=5)
 
@@ -63,6 +55,7 @@ model.fit(x_train, y_train)
 acc = model.score(x_test, y_test)
 
 print("최적의 매개변수 = ", model.best_estimator_)
+print("최적의 매개변수 = ", model.best_params_)
 print("acc : ", acc)
 
 import sklearn as sk

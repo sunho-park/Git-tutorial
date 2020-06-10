@@ -1,3 +1,5 @@
+# 98 복사 pipline
+
 from keras.datasets import mnist
 from keras.utils import np_utils
 from keras.models import Sequential, Model
@@ -31,6 +33,8 @@ def build_model(drop=0.5, optimizer='adam'):
     x = Dropout(drop)(x)
     x = Dense(256, activation='relu', name='hidden2')(x)
     x = Dropout(drop)(x)
+    # x = Dense(128, activation='relu', name='hidden3')(x)
+    # x = Dropout(drop)(x)
     outputs = Dense(10, activation='softmax', name='outputs')(x)
     model = Model(inputs = inputs, outputs=outputs)
     model.compile(optimizer=optimizer, metrics=['acc'], loss='categorical_crossentropy')
@@ -39,30 +43,36 @@ def build_model(drop=0.5, optimizer='adam'):
 
 def create_hyperparameters():
     batches = [256, 512]
-    optimizers = ['adam']
-    dropout = [0.1, 0.3]
-    return{"models__batch_size" : batches, 
-           "models__optimizer" : optimizers,
-           "models__drop" : dropout}
+    optimizers = ['rmsprop'] #, 'adam', 'adadelta']
+    dropout = [0.2, 0.3] # np.linspace(0.1, 0.5, 5)
+
+    return{"kerasclassifier__batch_size" : batches, 
+           "kerasclassifier__optimizer" : optimizers,
+           "kerasclassifier__drop" : dropout}
             
 # 5*3*5*3 = 225
 
-from keras.wrappers.scikit_learn import KerasClassifier
-model = KerasClassifier(build_fn=build_model, verbose=1)
 
 from sklearn.pipeline import Pipeline, make_pipeline
 from sklearn.preprocessing import MinMaxScaler, StandardScaler
 
-pipe = Pipeline([("scaler", MinMaxScaler()), ("models", model)])
-hyperparameters = create_hyperparameters()
+
+from keras.wrappers.scikit_learn import KerasClassifier
+model = KerasClassifier(build_fn=build_model, verbose=1)
+
+# pipe = Pipeline([("scaler", MinMaxScaler()), ("models", model)]) # 추가
+pipe = make_pipeline(MinMaxScaler(), KerasClassifier(build_fn=build_model, verbose=1)) # 수정
+
+hyperparameters = create_hyperparameters()  # 추가
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = RandomizedSearchCV(pipe, hyperparameters, cv=3, n_jobs=1)
 
+search = RandomizedSearchCV(pipe, hyperparameters, cv=3, n_jobs=1)
 search.fit(x_train, y_train)
 
 acc = search.score(x_test, y_test)
 
 print('최적의 매개변수 : ', search.best_estimator_)
 print('최적의 매개변수 : ', search.best_params_)
+
 print("acc    : ", acc)
