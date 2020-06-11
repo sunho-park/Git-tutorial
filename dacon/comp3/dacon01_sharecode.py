@@ -2,7 +2,8 @@ import pandas as pd
 import numpy as np 
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, r2_score
-
+from sklearn.ensemble import GradientBoostingRegressor
+from xgboost import XGBRFRegressor
 
 # 데이터 불러오기
 train_features = pd.read_csv('./data/dacon/comp2/train_features.csv')
@@ -66,7 +67,11 @@ print('y_test.shape : ', y_test.shape)          #   (560, 4)
 import sklearn
 from sklearn.ensemble import RandomForestRegressor
 
-model = RandomForestRegressor(n_jobs=-1, random_state=0)
+
+# model = RandomForestRegressor(n_jobs=-1, random_state=0)
+model = GradientBoostingRegressor()
+model = XGBRFRegressor
+
 model.fit(x_train, y_train)
 
 

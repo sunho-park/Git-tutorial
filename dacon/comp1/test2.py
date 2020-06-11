@@ -32,9 +32,12 @@ x_pred = test.values
 
 x_train, x_test, y_train, y_test = train_test_split(x, y, train_size = 0.8, random_state =33)
 
+print(y_train.shape)
+
+
 # 모델
 model = XGBRegressor()
-
+'''
 def tree_fit(y_train, y_test):
     model.fit(x_train, y_train)
     score = model.score(x_test, y_test)
@@ -45,6 +48,8 @@ def tree_fit(y_train, y_test):
 
     print('mae: ', mean_absolute_error(y_test, y_pred1))
     return y_predict
+'''
+print(len(submission.columns))
 
 def boost_fit_acc(y_train, y_test):
     y_predict = []
@@ -77,6 +82,7 @@ a = np.arange(10000,20000)
 
 submission = pd.DataFrame(y_predict, a)
 submission.to_csv('D:/Study1/dacon/comp1/sub_XG.csv',index = True, header=['hhb','hbo2','ca','na'],index_label='id')
+
 print(model.feature_importances_)
 
 ## feature_importances

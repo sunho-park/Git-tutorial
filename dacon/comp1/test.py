@@ -6,12 +6,12 @@ from xgboost import XGBClassifier, XGBRFRegressor
 from sklearn.model_selection import KFold   # K-Fold CV
 from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor, GradientBoostingClassifier
 import matplotlib.pyplot as plt
-
+from sklearn.metrics import mean_absolute_error
 import warnings
 warnings.filterwarnings(action='ignore') 
 train = pd.read_csv('./data/dacon/comp1/train.csv', index_col=0)
 test = pd.read_csv('./data/dacon/comp1/test.csv', index_col=0)
-submission = pd.read_csv('./data/dacon/comp1/sample_submission.csv')
+submission = pd.read_csv('./data/dacon/comp1/sample_submission.csv', index_col=0)
 
 # print(train.head())
 
@@ -60,7 +60,7 @@ print(y.shape) # (10000, 4)
 
 x = x.values
 y = y.values
-
+x_pred = test_dst.values
 
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=.2)
@@ -80,17 +80,45 @@ model = XGBRFRegressor()
 # model = RandomForestClassifier() 
 
 # 훈련
-model.fit(x_train, y_train)
 
-score = model.score(x_test, y_test)
+print(range(len(submission.columns)))
+print(len(submission.columns))
 
-# acc = model.score()
+# model.fit(x_train, y_train)
+# score = model.score(x_test, y_test)
+
+# y_pred = model.predict(x_test)
+# y_predict = model.predict(x_pred)
+
+def xgboost_fit(y_train, y_test):
+    y_predict = []
+    for i in range(len(submission.columns)): # 5
+        print(i)
+        y_train1 = y_train[:, i]
+        model.fit(x_train, y_train1)
+
+        y_test1 = y_test[:, i]
+
+        score = model.score(x_test, y_test1)
+        print("score : ", score)
+
+        y_pred = model.predict(x_pred)
+        y_pred1 = model.predict(x_test)
+
+        print('mae : ', mean_absolute_error(y_test1, y_pred1))
+        y_predict.append(y_pred)
+
+    return np.array(y_predict)
+
+y_predict = xgboost_fit(y_train, y_test).reshape(-1, 4)
+
+print(y_predict.shape)
+
 
 print(model.feature_importances_)
 
-print(x.shape[1]) #71
-'''
-x = x.values
+# print(x.shape[1]) #35
+
 
 def plot_feature_importances(model):
     n_features = x.shape[1]  
@@ -98,12 +126,11 @@ def plot_feature_importances(model):
     plt.barh(np.arange(n_features), model.feature_importances_, align='center')  #
 
 
-    plt.yticks(np.arange(n_features), x.feature_names)     # 축에 구간 설정, 이름 표시
+    plt.yticks(np.arange(n_features), train_dst.columns)     # 축에 구간 설정, 이름 표시
     plt.xlabel("Feature Importances")
     plt.ylabel("Feature")
     plt.ylim(-1, n_features)                                    # 축의 제한
 
 plot_feature_importances(model)
 plt.show()
-'''
-print("score : ", score)
+
