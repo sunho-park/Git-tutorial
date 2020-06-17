@@ -12,8 +12,8 @@ idx = 0
 #pyplot로 출력하기
 plt.figure(figsize=(10, 10))
 
-for i in range(25):
-    plt.subplot(5, 5, i+1)
+for i in range(9):
+    plt.subplot(3, 3, i+1)
     plt.title(y[i+idx])
     plt.imshow(x[i+idx])
 plt.show()
