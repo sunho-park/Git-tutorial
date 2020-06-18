@@ -1,4 +1,3 @@
-import sc4_cnn_model as cnn
 import keras
 import matplotlib.pyplot as plt
 import numpy as np
@@ -23,24 +22,25 @@ print('y.shape : ', y.shape)    #(600,)
 # 정규화 3
 x = x.astype('float32') /255
 
-# 레이블 데이터를 One-hot 벡터로 변환하기 4
-y = np_utils.to_categorical(y, out_y)
+# 레이블 데이터를 One-hot 인코딩 4
+y = np_utils.to_categorical(y, out_y)   # y=(600, ) // to_categorical(600, 3)
 
-# 학습 전용과 테스트 전용 구분하기 5
+# Train, Test 구분하기 5
 x_train, x_test, y_train, y_test = train_test_split(x, y, shuffle=True, train_size=0.8)
 
 # CNN 모델 만들기 6
-model = cnn.get_model(in_shape, out_y)
+import sc4_cnn_model
+model = sc4_cnn_model.get_model(in_shape, out_y)
 
-# 학습 실행하기 7
+# 훈련 7
 hist = model.fit(x_train, y_train, batch_size=4, epochs=60, verbose=1, validation_split=0.25)
 
-# 모델 평가하기 8
+# 평가 8
 loss, acc = model.evaluate(x_test, y_test,verbose=1)
 print('정답률=', acc, '손실률=', loss)
 
-# 학습상태를 그래프로 그리기   9
-# 정답률 추이 그리기
+# 훈련상태를 그래프로 그리기   9
+# 정답률 그리기
 plt.plot(hist.history['accuracy'])
 plt.plot(hist.history['val_accuracy'])
 plt.title('Accuracy')

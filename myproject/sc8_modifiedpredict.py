@@ -1,4 +1,4 @@
-import sc4_cnn_model as cnn
+import sc4_cnn_model
 import keras
 import matplotlib.pyplot as plt
 import numpy as np
@@ -18,7 +18,7 @@ LABELS = ["햄버거", "샐러드", "김밥"]
 CALORIES = [550, 118, 441] 
 
 # CNN 모델 읽어 들이기
-model = cnn.get_model(in_shape, out_y)
+model = sc4_cnn_model.get_model(in_shape, out_y)
 model.load_weights('./myproject/photos-model-light.hdf5')
 
 def input_photo(path):                        # path = 'test1.jpg'
@@ -30,29 +30,16 @@ def input_photo(path):                        # path = 'test1.jpg'
     # 데이터로 변환하기
     x = np.asarray(img)
     x = x.reshape(-1, rows, cols, color)/ 255 # 정규화 / x.shape : (1, 32, 32, 3)   
-    print('x.shape :', x.shape)
+       
     # 예측하기
-    print('x.ndim :', x.ndim)
-    z = [x] # list로 바꿔줌
-    print('len(x)', len(x))
-    print('len(z)', len(z))
-    print('[x][0] :', [x][0])
-    print('x.shape :', x.shape)                  # (1, 32, 32, 3)
-    #print('[x].shape :', [x].shape)         
-    print('[x][0].shape :', [x][0].shape)        # (1, 32, 32, 3)
-    print('len([x][0]) :', len([x][0])) #1
-    predict = model.predict(x)
-    predict = predict.reshape(3, )
-    print(predict)
-    print(predict.shape)
-    #predict = model.predict([x])[0]               # (1, 3)을 스칼라로 바꿔주기 
-    #print(model.predict([x]))                    # [[9.99989390e-01 1.00640455e-05 6.33899845e-07]]
-    #print("predict : ", predict)                 # [9.99989390e-01 1.00640455e-05 1.00640455e-05]
+    predict = model.predict(x).reshape(3, )      # (1, 3)을 스칼라로 (3, )바꿔주기
+    #print(model.predict(x))                      # [[9.2993295e-01 7.0066802e-02 2.0626393e-07]]
+    #print("predict : ", predict)                 # [9.2993295e-01 7.0066802e-02 2.0626393e-07]
     #print("predict.shape : ", predict.shape)     # (3, )
 
-    index = predict.argmax()                      # index = [햄버거 0, 샐러드 1, 김밥 2] 중 가장 큰 값 인덱스번호 출력
-    per = int(predict[index]*100)                 # predict[index], predict[0]*100 후에 정수형으로 바꿔서 정수부분만 출력 
-    #print('predict[index] : ', predict[index])   # predict[0] = 9.99989390e-01 / predict[1] = 1.00640455e-05 /predict[2]=1.00640455e-05
+    index = predict.argmax()          # index = [햄버거 0, 샐러드 1, 김밥 2] 중 가장 큰 값 인덱스번호 출력
+    per = int(predict[index]*100)     # predict[index], predict[0]*100 후에 정수형으로 바꿔서 정수부분만 출력 
+    #print(predict[index])            # predict[0]=9.2993295e-01/ predict[1] = 7.0066802e-02/ predict[2]=2.0626393e-07
     return (index, per)
     
 def check_photo(path):
@@ -62,8 +49,6 @@ def check_photo(path):
     print("가능성은", per, "%입니다.")
     print("------------------------")
 
-
-
 if __name__=='__main__':
     check_photo('test1.jpg')
     check_photo('test2.jpg')
@@ -72,12 +57,3 @@ if __name__=='__main__':
     check_photo('test5.jpg')
     check_photo('test6.jpg')
     check_photo('test7.jpg')
-'''
-print(check_photo('test1.jpg'))
-print(check_photo('test2.jpg'))
-print(check_photo('test3.jpg'))
-print(check_photo('test4.jpg'))
-print(check_photo('test5.jpg'))
-print(check_photo('test6.jpg'))
-print(check_photo('test7.jpg'))
-'''
