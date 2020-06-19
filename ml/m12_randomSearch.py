@@ -12,7 +12,6 @@ from sklearn.svm import SVC
 import warnings
 from keras.datasets import mnist
 from sklearn.ensemble import RandomForestClassifier
-
 from sklearn.datasets import load_breast_cancer
 import pandas as pd
 

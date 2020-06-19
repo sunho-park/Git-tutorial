@@ -43,4 +43,7 @@ def plot_feature_importances_cancer(model):
 plot_feature_importances_cancer(model)
 plt.show()
 
+
+print("acc : ", acc)
+
 # 트리구조의 장점 : 전처리가 필요없다. 단점 : 과적합잘됨

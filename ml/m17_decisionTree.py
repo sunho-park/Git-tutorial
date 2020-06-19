@@ -15,6 +15,7 @@ model.fit(x_train, y_train)
 acc = model.score(x_test, y_test)
 
 print(model.feature_importances_)
+print("acc : ", acc)
 
 '''
 [0.         0.         0.         0.         0.         0.

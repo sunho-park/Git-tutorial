@@ -13,6 +13,12 @@ x_train, x_test, y_train, y_test = train_test_split(
     cancer.data, cancer.target, test_size=.2, random_state=42
 )
 
+
+print(x_train.shape)
+print(y_train.shape)
+print(x_test.shape)
+print(y_test.shape)
+
 # model = DecisionTreeClassifier(max_depth=3)
 # model = RandomForestClassifier() 
 # model = GradientBoostingClassifier()
@@ -36,14 +42,13 @@ print(cancer.data.shape)
 print('cancer.data.shape[1] : ', cancer.data.shape[1])  # 30
 
 def plot_feature_importances_cancer(model):
-    n_features = cancer.data.shape[1]  # 30
-    plt.barh(np.arange(n_features), model.feature_importances_, align='center')  #
+    n_features = cancer.data.shape[1]  # 30  # n_features = column개수 
+    plt.barh(np.arange(n_features), model.feature_importances_, align='center')  #align : 정렬 / 'edge' : x축 label이 막대 왼쪽 가장자리에 위치 
 
-
-    plt.yticks(np.arange(n_features), cancer.feature_names)     # 축에 구간 설정, 이름 표시
+    plt.yticks(np.arange(n_features), cancer.feature_names)     # tick 축에 구간 설정, 이름 표시
     plt.xlabel("Feature Importances")
     plt.ylabel("Feature")
-    plt.ylim(-1, n_features)                                    # 축의 제한
+    plt.ylim(-1, n_features)                                    # lim 축의 제한
 
 plot_feature_importances_cancer(model)
 plt.show()
