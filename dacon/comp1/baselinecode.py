@@ -43,7 +43,7 @@ y_train = train.loc[:, 'hhb':'na']
 
 print(x_train.shape, y_train.shape)
 
-def train_model(x_data, y_data, k=7):
+def train_model(x_data, y_data, k=5):
     models=[]
     
     k_fold = KFold(n_splits=k, shuffle=True, random_state=123)
@@ -70,7 +70,6 @@ def train_model(x_data, y_data, k=7):
 
     return models
 
-print(k_fold.split(x_data))
 
 models = {}
 for label in y_train.columns:  # hhb, hbo2, ca, na 

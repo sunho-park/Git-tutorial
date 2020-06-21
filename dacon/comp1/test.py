@@ -81,9 +81,6 @@ model = XGBRFRegressor()
 
 # 훈련
 
-print(range(len(submission.columns)))
-print(len(submission.columns))
-
 # model.fit(x_train, y_train)
 # score = model.score(x_test, y_test)
 
@@ -92,7 +89,7 @@ print(len(submission.columns))
 
 def xgboost_fit(y_train, y_test):
     y_predict = []
-    for i in range(len(submission.columns)): # 5
+    for i in range(len(submission.columns)): # 4
         print(i)
         y_train1 = y_train[:, i]
         model.fit(x_train, y_train1)
