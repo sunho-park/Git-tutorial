@@ -1,68 +1,36 @@
-from keras.datasets import mnist
-from keras.utils import np_utils
-from keras.models import Sequential, Model
-from keras.layers import Input, Dropout, Conv2D, Flatten, Dense
-from keras.layers import MaxPooling2D
+from sklearn.feature_selection import SelectFromModel
 import numpy as np
+from xgboost import XGBRFRegressor
+from sklearn.model_selection import train_test_split
+from sklearn.datasets import load_boston
+from sklearn.metrics import accuracy_score, r2_score
 
+x, y = load_boston(return_X_y=True)
 
-# 1. 데이터
-(x_train, y_train),(x_test, y_test) = mnist.load_data()
+x_train, x_test, y_train, y_test = train_test_split(x, y, train_size=.8, shuffle=True, random_state=66)
 
-print(x_train.shape)    # (60000, 28, 28)
-print(x_test.shape)     # (10000, 28, 28)
+model = XGBRFRegressor(n_estimators=1000, learning_rate=0.1)
 
-# x_train = x_train.reshape(x_train.shape[0], 28, 28, 1)/255
-# x_test = x_test.reshape(x_test.shape[0], 28, 28, 1)/255
+model.fit(x_train, y_train, verbose=True, eval_metric=["rmse", "mae"],  eval_set = [(x_train, y_train), (x_test, y_test)], early_stopping_rounds=30)
 
-x_train = x_train.reshape(x_train.shape[0], 28*28)/255
-x_test = x_test.reshape(x_test.shape[0], 28*28)/255
+results = model.evals_result()
+print("eval's results : ", results)
 
-y_train = np_utils.to_categorical(y_train)
-y_test = np_utils.to_categorical(y_test)
+y_pred = model.predict(x_test)
 
-print(y_train.shape)
+r2 = r2_score(y_pred, y_test)
+print('r2 : ', r2)
 
-# 2. 모델
+import matplotlib.pyplot as plt
 
-def build_model(drop=0.5, optimizer='adam'):
-    inputs = Input(shape=(28*28, ), name='input')
-    x = Dense(512, activation='relu', name='hidden1')(inputs)
-    x = Dropout(drop)(x)
-    x = Dense(256, activation='relu', name='hidden2')(x)
-    x = Dropout(drop)(x)
-    outputs = Dense(10, activation='softmax', name='outputs')(x)
-    model = Model(inputs = inputs, outputs=outputs)
-    model.compile(optimizer=optimizer, metrics=['acc'], loss='categorical_crossentropy')
+epochs = len(results['validation_0']['rmse'])
+x_axis = range(0, epochs)
 
-    return model
+fig, ax = plt.subplots()
+ax.plot(x_axis, results['validation_0']['rmse'], label='Train')
+ax.plot(x_axis, results['validation_1']['rmse'], label='Test')
+ax.legend()
 
-def create_hyperparameters():
-    batches = [256, 512]
-    optimizers = ['adam']
-    dropout = [0.1, 0.3]
-    return{"models__batch_size" : batches, 
-           "models__optimizer" : optimizers,
-           "models__drop" : dropout}
-            
-# 5*3*5*3 = 225
-
-from keras.wrappers.scikit_learn import KerasClassifier
-model = KerasClassifier(build_fn=build_model, verbose=1)
-
-from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.preprocessing import MinMaxScaler, StandardScaler
-
-pipe = Pipeline([("scaler", MinMaxScaler()), ("models", model)])
-hyperparameters = create_hyperparameters()
-
-from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = RandomizedSearchCV(pipe, hyperparameters, cv=3, n_jobs=1)
-
-search.fit(x_train, y_train)
-
-acc = search.score(x_test, y_test)
-
-print('최적의 매개변수 : ', search.best_estimator_)
-print('최적의 매개변수 : ', search.best_params_)
-print("acc    : ", acc)
+plt.ylabel('Log Loss')
+plt.title('XGBoost Log Loss')
+plt.show()

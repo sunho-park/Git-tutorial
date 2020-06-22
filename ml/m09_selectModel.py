@@ -21,16 +21,12 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 
 allAlgorithms = all_estimators(type_filter='classifier')
 
-for (name,algorithm) in allAlgorithms:
+for (name, algorithm) in allAlgorithms:
     model = algorithm()
 
     model.fit(x_train, y_train)
     y_pred = model.predict(x_test)
-    print(name, "의 장답률 = ", accuracy_score(y_test, y_pred))
+    print(name, "의 정답률 = ", accuracy_score(y_test, y_pred))
 
 import sklearn
 print(sklearn.__version__)
-
-
-
-
