@@ -82,8 +82,10 @@ print("loss : ", loss)
 print("acc : ", acc)
 
 x_predict = np.array([1, 2, 3, 4, 5])
+print(x_predict.shape)                  # (5, )
 y_predict = model.predict(x_predict)
 print("y_predict : \n", y_predict)
+print("y_predict.shape : \n", y_predict.shape) # (5, 5)
 
 y_predict = np.argmax(y_predict, axis=1).reshape(-1)
 print("y_predict : \n", y_predict)

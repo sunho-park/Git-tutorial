@@ -9,13 +9,22 @@ import matplotlib.pyplot as plt
 
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
-print('x_train[0] : ', x_train[0])
-print('y_train[0] : \n', y_train[0])
+print('y_train.dtype : ', y_train.dtype)
+print('y_test.dtype : ', y_test.dtype)
+
+# print('x_train[0] : ', x_train[0])
+# print('y_train[0] : \n', y_train[0])
+
+# print("x_train : \n", x_train)
+print("x_test : ", x_test)
+print("x_train.shape : ", x_train.shape)
+print("x_test.shape : ", x_test.shape)
+
 
 print("y_train : \n", y_train)
 print("y_test : ", y_test)
-print("y_train.shape : ", y_train.shape)
-print("y_test.shape : ", y_test.shape)
+print("y_train.shape : ", y_train.shape)    #(50000, 1)
+print("y_test.shape : ", y_test.shape)      #(10000, 1)
 
 
 # plt.imshow(x_train[0])
@@ -23,12 +32,20 @@ print("y_test.shape : ", y_test.shape)
 
 from keras.utils import np_utils            # y를 원핫 인코딩
 
-y_train = np_utils.to_categorical(y_train)
-y_test = np_utils.to_categorical(y_test)
+# y_train = np_utils.to_categorical(y_train)
+y_train = np_utils.to_categorical(y_train.astype('int32'))
+print('y_train.dtype : ', y_train.dtype) 
 
+y_test = np_utils.to_categorical(y_test)
+print('y_test.dtype : ', y_test.dtype)
+
+
+
+# y_test = y_test.astype('int32')
+# print('y_test.dtype : ', y_test.dtype)
 
 print("y_train : ", y_train)
-print("y_test : ", y_test)
+print("y_test : ", y_test.shape)
 
 x_train = x_train.reshape(50000, 32, 32, 3).astype('float32')/255
 x_test = x_test.reshape(10000, 32, 32, 3).astype('float32')/255

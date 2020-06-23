@@ -48,7 +48,11 @@ x_test = x_test.reshape(10000, 28, 28, 1).astype('float32')/255
 from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 
+from keras.models import load_model
+model = load_model('./model/model_test02.h5')
+'''
 model = Sequential()
+
 model.add(Conv2D(32, (1, 1), input_shape=(28, 28, 1)))
 model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -62,6 +66,7 @@ model.add(Dropout(0.3))
 model.add(Flatten())
 # model.add(Dense(10, activation='softmax'))
 model.add(Dense(10, activation='softmax'))
+'''
 
 
 # 3, 컴파일 훈련
@@ -72,7 +77,6 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']
 
 hist = model.fit(x_train, y_train, epochs=10, batch_size=128, verbose=1, validation_split=0.2, callbacks = [es])
 
-# from keras.models import load_model
 
 ################################################
 model.load_weights('./model/test_weight1.h5') 

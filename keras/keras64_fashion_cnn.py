@@ -22,8 +22,8 @@ print('y_train[0] : \n', y_train[0])
 
 print("y_train : \n", y_train)
 print("y_test : ", y_test)
-print("y_train.shape : ", y_train.shape)
-print("y_test.shape : ", y_test.shape)
+print("y_train.shape : ", y_train.shape)    #(60000, )
+print("y_test.shape : ", y_test.shape)      #(10000,)
 
 
 # plt.imshow(x_train[0], 'gray')
@@ -34,8 +34,8 @@ y_test = np_utils.to_categorical(y_test)
 
 print("y_train : ", y_train)
 print("y_test : ", y_test)
-print("y_train.shape : ", y_train.shape)
-print("y_test.shape : ", y_test.shape)
+print("y_train.shape : ", y_train.shape) #(60000, 10)
+print("y_test.shape : ", y_test.shape)   #(10000, 10)
 
 x_train = x_train.reshape(60000, 28, 28, 1).astype('float32')/255
 x_test = x_test.reshape(10000, 28, 28, 1).astype('float32')/255
