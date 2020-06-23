@@ -30,10 +30,11 @@ print(thresholds)
 
 # 아래도 Gridsearch 적용
 
+
 for thresh in thresholds:   # 컬럼수 만큼 돈다! 빙글 빙글
     selection = SelectFromModel(model, threshold=thresh, prefit=True)
                                                # median
-    
+     
     select_x_train = selection.transform(x_train)
     # print(select_x_train.shape)
 
