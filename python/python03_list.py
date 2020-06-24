@@ -32,7 +32,7 @@ print(a + b) #      리스트 + 리스트 // class numpy.ndarray, numpy 로 계�
 c = [7, 8, 9, 10]
 print(a+c)
 
-print(a*3) #numpy로 하면 3, 6, 9 로 나옴
+print(a*3) # numpy로 하면 3, 6, 9 로 나옴
 
 # print(a[2] + 'hi')
 print(str(a[2]) + 'hi')
