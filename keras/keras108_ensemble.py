@@ -26,7 +26,8 @@ model.summary()
 
 # 3. 컴파일, 훈련
 model.compile(loss=['mse', 'binary_crossentropy'], 
-            optimizer='adam', metrics=['mse', 'acc'])
+            optimizer='adam', 
+            metrics=['mse', 'acc'])
 
 model.fit(x_train, [y1_train, y2_train], epochs=100, batch_size=1)
 

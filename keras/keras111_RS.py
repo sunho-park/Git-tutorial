@@ -1,10 +1,5 @@
-# 100번을 카피해서 lr 을 넣고 튠하시오.
-# LSTM - > Dense 로 바꿀것
+# 107번을 Activation 넣어서 완성하시오.
 
-'''keras100_hyper_lstm.py 의 주석 
-# 97번을 RandomizedSearchCV 로 변경하시오
-# score 넣어보기 
-'''
 from keras.datasets import mnist
 from keras.utils import np_utils
 from keras.models import Sequential, Model
@@ -35,8 +30,8 @@ print(x_train.shape) # (60000, 784)
 print(y_train.shape) # (60000, 10)
 
 # 2. 모델
-# 2) 모델링 함수 바꾸기
-def build_model(drop, optimizer, lr):
+
+def build_model(drop=0.5, optimizer='adam'):
     inputs = Input(shape=(784,), name='input')
     x = Dense(512, activation='relu', name='hidden1')(inputs)
     x = Dropout(drop)(x)
@@ -50,17 +45,24 @@ def build_model(drop, optimizer, lr):
 
     return model
 
- # 하이퍼파라미터 함수 바꾸기
 def create_hyperparameters():
 
     batches = [10, 30, 50]
-    # lr = [0.1, 0.01, 0.001, 0.005, 0.007]
-    lr = np.linspace(0.1, 0.5, 4)
+    # lr = np.linspace(0.1, 0.5, 5).tolist
+    # lr = np.linspace(0.1, 0.5, 4)
     optimizers = ['rmsprop', 'adam', 'adadelta']
     dropout = np.linspace(0.1, 0.5, 5)
     
-    return {"batch_size" : batches, "lr": lr, "optimizer" : optimizers,
-            "drop" : dropout}
+    return {"batch_size" : batches, "optimizer" : optimizers, "drop" : dropout}#"learning_rate": lr,}
+            
+# batches = [10, 30, 50]
+# optimizers = ['rmsprop', 'adam', 'adadelta']
+# learn_rate = [0.001, 0.01, 0.1, 0.2, 0.3]
+# # dropout = np.linspace(0.1, 0.5, 5)
+# param_grid = dict(learn_rate=learn_rate)
+
+# learn_rate = [0.001, 0.01, 0.1, 0.2, 0.3]
+# param_grid = dict(learn_rate=learn_rate)
 
 from keras.wrappers.scikit_learn import KerasClassifier
 model = KerasClassifier(build_fn=build_model, verbose=1)
