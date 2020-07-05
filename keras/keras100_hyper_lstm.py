@@ -8,7 +8,8 @@ from keras.models import Sequential, Model
 from keras.layers import Input, Dropout, Conv2D, Flatten, Dense, LSTM
 from keras.layers import MaxPooling2D
 import numpy as np
-
+import warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 
 # 1. 데이터
 (x_train, y_train),(x_test, y_test) = mnist.load_data()
@@ -22,8 +23,8 @@ print(x_test.shape)     # (10000, 28, 28)
 # x_train = x_train.reshape(x_train.shape[0], 1, 28*28)/255
 # x_test = x_test.reshape(x_test.shape[0], 1, 28*28)/255
 
-x_train = x_train.reshape(x_train.shape[0], 28*28, 1)/255
-x_test = x_test.reshape(x_test.shape[0], 28*28, 1)/255
+# x_train = x_train.reshape(x_train.shape[0], 28*28, 1)/255
+# x_test = x_test.reshape(x_test.shape[0], 28*28, 1)/255
 
 x_train = x_train.reshape(x_train.shape[0], 28, 28)/255
 x_test = x_test.reshape(x_test.shape[0], 28, 28)/255
@@ -50,7 +51,7 @@ def build_model(drop=0.5, optimizer='adam'):
     return model
 
 def create_hyperparameters():
-    batches = [10, 20, 30, 40, 50]
+    batches = [64, 128, 256]
     optimizers = ['rmsprop', 'adam', 'adadelta']
     dropout = np.linspace(0.1, 0.5, 5)
     return{"batch_size" : batches, "optimizer" : optimizers,
@@ -64,7 +65,7 @@ model = KerasClassifier(build_fn=build_model, verbose=1)
 hyperparameters = create_hyperparameters()
 
 from sklearn.model_selection import GridSearchCV, RandomizedSearchCV
-search = RandomizedSearchCV(model, hyperparameters, cv=3, n_jobs=1)
+search = RandomizedSearchCV(model, hyperparameters, cv=3, n_jobs=1) # n_iter=10 10번 돌아감
 
 search.fit(x_train, y_train)
 

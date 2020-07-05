@@ -7,14 +7,28 @@ from keras.layers import Dense, Conv2D, MaxPool2D, Flatten, BatchNormalization, 
 from keras.optimizers import Adam
 
 # vgg16 = VGG16() # (None, 224, 224, 3)
-vgg = VGG19()
-
-
+# model = VGG19()
+model = Xception()
+model = ResNet101()
+model = ResNet101V2()
+model = ResNet152()
+model = ResNet152V2()
+model = ResNet50()
+model = ResNet50V2()
+model = InceptionV3()
+model = InceptionResNetV2()
+model = MobileNet()
+model = MobileNetV2()
+model = DenseNet121()
+model = DenseNet169()
+model = DenseNet201()
+model = NASNetLarge()
+model = NASNetMobile()
 
 # vgg16.summary()
-
+'''
 model= Sequential()
-model.add(vgg16)
+# model.add(vgg16)
 # model.add(Flatten())
 model.add(Dense(256))
 model.add(BatchNormalization())
@@ -22,3 +36,4 @@ model.add(Activation('relu'))
 model.add(Dense(10, activation='softmax'))
 
 model.summary()
+'''

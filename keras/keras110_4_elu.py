@@ -20,14 +20,10 @@ a = 0.2
 x = np.arange(-5, 5, 0.1)
 y = elu(x, a)  
 
+# 리스트 컴프리헨션
 # a = 0.2
 # x = np.arange(-5,5,0.1)
 # y = [x if x>0 else a*(np.exp(x)-1) for x in x]
-
-
-# y = Leaky
-# relu elu selu 찾기 relu leakyrrelu elu selu
-
 
 plt.plot(x, y)
 plt.grid()

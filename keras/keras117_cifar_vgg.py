@@ -1,12 +1,10 @@
-# keras113_L1.py 복사
-# 과적합 피하기 1
-
 from keras.datasets import cifar10
 from keras.utils import np_utils
 from keras.models import Sequential, Model, Input
+from keras.applications import VGG16, VGG19
 
 from keras.layers import Dense, LSTM, Conv2D
-from keras.layers import Flatten, MaxPooling2D, Dropout
+from keras.layers import Flatten, MaxPooling2D, Dropout, Activation, BatchNormalization # activation에서도 명시해줘야함
 from keras.optimizers import Adam
 
 import matplotlib.pyplot as plt
@@ -28,9 +26,16 @@ x_test = x_test.reshape(10000, 32, 32, 3).astype('float32')/255
 # 모델 구성 
 from keras.regularizers import l1, l2, l1_l2
 
-model = Sequential()
+input_tensor = Input(shape=(32, 32, 3)) 
+vgg16 = VGG16(include_top=False, weights='imagenet', input_tensor=input_tensor)
 
-input_tesnsor=Input(shape=(32, 32, 3))
+# include_top은 원래 모델의 최후 전결합층을 사용할지 여부 False 일 경우 원래 ㅁ도델의 합성곱층의 특징 추출 부분만 사용
+# 이후 층에는 스스로 작성한 모델을 추가할 수 있다.
+# weights에 imagenet을 지정하면 Imagenet 에서 학습한 가중치를 사용하고 None을 지정하면 임의의 가중치를 사용
+
+model = Sequential()
+model.add(vgg16)
+'''
 model.add(Conv2D(32, kernel_size=3, padding='same', activation='relu', input_shape=(32, 32, 3)))
 # model.add(Dropout(0.2))
 model.add(Conv2D(32, kernel_size=3, padding='same', activation='relu'))
@@ -42,16 +47,17 @@ model.add(Conv2D(64, kernel_size=3, padding='same', activation='relu'))
 model.add(Conv2D(64, kernel_size=3, padding='same', activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
 model.add(Dropout(0.2))
+'''
 
 model.add(Conv2D(128, kernel_size=3, padding='same', activation='relu'))
-# model.add(Dropout(0.2))
+model.add(Dropout(0.3))
 model.add(Conv2D(128, kernel_size=3, padding='same', activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.3))
 
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))
-model.add(Dropout(0.2))
+model.add(Dropout(0.3))
 model.add(Dense(10, activation='softmax'))
 
 model.summary()
@@ -99,5 +105,3 @@ plt.xlabel('epoch')
 plt.legend(['acc', 'val_acc'])
 
 plt.show()
-
-

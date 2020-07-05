@@ -17,17 +17,9 @@ def selu(x):
     return scale * elu(x, alpha)
 
 
-# a = 0.2
-# x = np.arange(-5,5,0.1)
-# y = [x if x>0 else a*(np.exp(x)-1) for x in x]
-
 a = 0.2
 x = np.arange(-5, 5, 0.1)
 y = selu(x)  
-
-# y = Leaky
-# relu elu selu 찾기 relu leakyrrelu elu selu
-
 
 plt.plot(x, y)
 plt.grid()
