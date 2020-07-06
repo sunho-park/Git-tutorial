@@ -53,7 +53,8 @@ model.add(Conv2D(128, kernel_size=3, padding='same', activation='relu'))
 model.add(Dropout(0.3))
 model.add(Conv2D(128, kernel_size=3, padding='same', activation='relu'))
 model.add(MaxPooling2D(pool_size=(2, 2), strides=2, padding='same'))
-model.add(Dropout(0.3))'''
+model.add(Dropout(0.3))
+'''
 
 model.add(Flatten())
 model.add(Dense(256, activation='relu'))

@@ -66,7 +66,7 @@ model.summary()
 model.compile(optimizer=Adam(1e-4), loss='sparse_categorical_crossentropy', metrics=['acc']) 
 # 따옴표'adam' 디폴트의 adam을 가져옴 / 1e-4 0.0001 / 원한인코딩안했을 경우 sparse_categorical_crossentropy 
 
-hist = model.fit(x_train, y_train, epochs=20, batch_size=32, verbose=1, validation_split=0.3)
+hist = model.fit(x_train, y_train, epochs=5, batch_size=32, verbose=1, validation_split=0.3)
 
 # 평가, 예측
 loss_acc = model.evaluate(x_test, y_test, batch_size=32)
