@@ -46,28 +46,28 @@ xsam_train, xsam_test, ysam_train, ysam_test, xhite_train, xhite_test =train_tes
 scaler = MinMaxScaler()
 
 scaler.fit(xsam_train)
-xs_train = scaler.transform(xsam_train)
-xs_test = scaler.transform(xsam_test)
+xsam_train = scaler.transform(xsam_train)
+xsam_test = scaler.transform(xsam_test)
 
 scaler.fit(xhite_train)
-xh_train = scaler.transform(xhite_train)
-xh_test = scaler.transform(xhite_test)
+xhite_train = scaler.transform(xhite_train)
+xhite_test = scaler.transform(xhite_test)
 
 # PCA
 pca = PCA(n_components=3)
 
-pca.fit(xh_train)
-xhpca_train = pca.transform(xh_train)
-xhpca_test = pca.transform(xh_test)
+pca.fit(xhite_train)
+xhite_train = pca.transform(xhite_train)
+xhite_test = pca.transform(xhite_test)
 
 # 차원 변경
-xs_train = xs_train.reshape(352, 5, 1)  
-xs_test = xs_test.reshape(152, 5, 1)
+xsam_train = xsam_train.reshape(352, 5, 1)  
+xsam_test = xsam_test.reshape(152, 5, 1)
 
-print('xs_train.shape : ', xs_train.shape)     
-print('xs_test.shape : ', xs_test.shape)      
-print('xhpca_train.shape : ', xhpca_train.shape)   
-print('xhpca_test.shape : ', xhpca_test.shape) 
+print('xsam_train.shape : ', xsam_train.shape)     
+print('xsam_test.shape : ', xsam_test.shape)      
+print('xhite_train.shape : ', xhite_train.shape)   
+print('xhite_test.shape : ', xhite_test.shape) 
 
 # 2. 모델 구성
 input1 = Input(shape=(5, 1))
@@ -100,27 +100,30 @@ model.summary()
 
 # 3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit([xs_train, xhpca_train], ysam_train, epochs=1, batch_size=1)
+model.fit([xsam_train, xhite_train], ysam_train, epochs=1, batch_size=1)
 
 # All input arrays (x) should have the same number of samples. Got array shapes: [(504, 5), (509, 5)]
 # 앙상블 모델 할때 주의 점 : 행숫자 까지를 맞춰줘야함.
 
 # 4. 평가, 예측
 
-loss, mse = model.evaluate([xs_test, xhpca_test], ysam_test, batch_size=1)
+loss, mse = model.evaluate([xsam_test, xhite_test], ysam_test, batch_size=1)
 print("loss : ", loss)
 print("mse : ", mse)
 
-# y_predict = model.predict([[xs_test[-1]], [xhpca_test[-1]]])
+# y_predict = model.predict([[xsam_test[-1]], [xhite_test[-1]]])
 
-print(xs_test.shape)  # (504, 5, 1)
-print(xhpca_test.shape)  # (504, 5)
+print(xsam_test.shape)  # (152, 5, 1)
+print(xhite_test.shape)  # (152, 5)
 
-print(xs_test[-1].shape) # (5, 1)
-print(xhpca_test[-1].shape) # (3, )
+print(xsam_test[-1].shape) # (5, 1)
+print(xhite_test[-1].shape) # (3, )
 
-x1_predict = xs_test[-1]
-x2_predict = xhpca_test[-1]
+x1_predict = xsam_test[-1]
+x2_predict = xhite_test[-1]
+
+print(xsam_test[-1])
+print(xhite_test[-1])
 
 print(x1_predict.shape)  #(5, 1)
 print(x2_predict.shape)  #(3, )   
@@ -132,6 +135,12 @@ print(x1_predict.shape)
 print(x2_predict.shape)
 
 y_predict = model.predict([x1_predict, x2_predict])
+print('2020년 6월 2일 삼성전자 주가 : ', y_predict)
 
 
-print('y_predict : ', y_predict)
+print(xsam_test.shape)  # (152, 5, 1)
+print(xhite_test.shape)  # (152, 5)
+
+y_pred = model.predict([xsam_test, xhite_test])
+print('y_pred : ', y_pred)
+

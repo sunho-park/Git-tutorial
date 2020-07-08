@@ -30,16 +30,16 @@ def input_photo(path):                        # path = 'test1.jpg'
     # 데이터로 변환하기
     x = np.asarray(img)
     x = x.reshape(-1, rows, cols, color)/ 255 # 정규화 / x.shape : (1, 32, 32, 3)   
-       
+
     # 예측하기
-    predict = model.predict(x).reshape(3, )      # (1, 3)을 스칼라로 (3, )바꿔주기
-    #print(model.predict(x))                      # [[9.2993295e-01 7.0066802e-02 2.0626393e-07]]
-    #print("predict : ", predict)                 # [9.2993295e-01 7.0066802e-02 2.0626393e-07]
+    predict = model.predict(x).reshape(3, )       # (1, 3)을 스칼라로 (3, ) 바꿔주기
+    print(model.predict(x))                       # [[9.996532e-01 3.467400e-04 6.208235e-11]]
+    #print("predict : ", predict)                 # [9.996532e-01 3.467400e-04 6.208235e-11]
     #print("predict.shape : ", predict.shape)     # (3, )
 
     index = predict.argmax()          # index = [햄버거 0, 샐러드 1, 김밥 2] 중 가장 큰 값 인덱스번호 출력
     per = int(predict[index]*100)     # predict[index], predict[0]*100 후에 정수형으로 바꿔서 정수부분만 출력 
-    #print(predict[index])            # predict[0]=9.2993295e-01/ predict[1] = 7.0066802e-02/ predict[2]=2.0626393e-07
+    #print(predict[index])            # predict[0]=9.996532e-01 / predict[1]=3.467400e-04 /predict[2]=6.208235e-11
     return (index, per)
     
 def check_photo(path):

@@ -51,7 +51,5 @@ print('acc : ', acc)
 
 # Conv1D는 lstm 과 다르게 input 넣어줘라
 
-
-
 # 525~531
 

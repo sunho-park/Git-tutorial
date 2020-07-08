@@ -52,7 +52,7 @@ train_features = train_num.drop(['CSTMR_CNT', 'AMT', 'CNT'], axis=1)
 train_target = np.log1p(train_num['AMT'])
 
 # 훈련
-model = RandomForestRegressor(n_jobs=-1, random_state=0)
+model = RandomForestRegressor(n_jobs=-1, random_state=0, n_estimators=1100, max_depth=30)
 model.fit(train_features, train_target)
 
 # 예측 템플릿 만들기

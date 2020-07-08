@@ -31,7 +31,6 @@ y_label = dataset.target
 # 사이킷런 XGBoost 클래스인 XGBClassifier 임포트
 from xgboost import XGBClassifier
 
-
 x_train, x_test, y_train, y_test = train_test_split(x_features, y_label, test_size=0.2, random_state=156)
 
 xgb_wrapper = XGBClassifier(n_estimators=400, learning_rate=.1, max_depth=3)
@@ -40,4 +39,3 @@ w_preds = xgb_wrapper.predict(x_test)
 w_pred_proba = xgb_wrapper.predict_proba(x_test)[:, 1]
 
 print(get_clf_eval(y_test, w_preds, w_pred_proba))
-

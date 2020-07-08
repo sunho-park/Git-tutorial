@@ -29,10 +29,20 @@ print(samsung.shape)                             # (509, )
 samsung = (split_x(samsung, size))
 print(samsung.shape)                # (504, 6, 1) //  # (504, 6)
 
-# print("samsung : ",samsung)
+print("samsung : ",samsung)
+
+
+###############################
+x_test = samsung[-1, 1:6]
+print('x_test : ', x_test)
+############################
 
 x_sam = samsung[:, 0:5]
 y_sam = samsung[:, 5]
+
+print('x_sam[-1] : ', x_sam[-1])
+
+print(samsung[-1, 1:6])
 
 # print('x_sam : ', x_sam)
 # print('y_sam : ', y_sam)

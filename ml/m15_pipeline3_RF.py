@@ -32,6 +32,7 @@ parameters = [
     {"C" :[1, 100, 1000], "kernel" :['sigmoid'], 'gamma':[0.001, 0.0001]}
 ]
 '''
+
 parameters = [
     {"rf__n_jobs" :[1], "rf__n_estimators" : [100, 200], "rf__criterion" : ['gini', 'entropy']},
     {"rf__min_samples_leaf" : [1, 2], "rf__max_features" : [1, 2]}

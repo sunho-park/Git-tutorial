@@ -46,13 +46,14 @@ xsam_train, xsam_test, ysam_train, ysam_test, xhite_train, xhite_test = train_te
 scaler = StandardScaler()
 
 # train만 fit 해주기 test, predict는 평가만한다/ train의 계산치로 train 범위 밖의 test를 평가
+
 scaler.fit(xsam_train)
-xs_train = scaler.transform(xsam_train)
-xs_test = scaler.transform(xsam_test)
+xsam_train = scaler.transform(xsam_train)
+xsam_test = scaler.transform(xsam_test)
 
 scaler.fit(xhite_train)
-xh_train = scaler.transform(xhite_train)
-xh_test = scaler.transform(xhite_test)
+xhite_train = scaler.transform(xhite_train)
+xhite_test = scaler.transform(xhite_test)
 
 # PCA
 
@@ -61,21 +62,21 @@ pca = PCA(n_components=1)
 # pca.transform(xsam_train)
 # pca.transform(xsam_test)
 
-pca.fit(xh_train)
-xhpca_train = pca.transform(xh_train)
-xhpca_test = pca.transform(xh_test)
+pca.fit(xhite_train)
+xhite_train = pca.transform(xhite_train)
+xhite_test = pca.transform(xhite_test)
 
 # 차원 변경 
-print('xs_train.shape : ', xs_train.shape)     # (352, 5)
-print('xs_test.shape : ', xs_test.shape)      # (152, 5)
+print('xsam_train.shape : ', xsam_train.shape)     # (352, 5)
+print('xsam_test.shape : ', xsam_test.shape)      # (152, 5)
 
-print('xhpca_train.shape : ', xhpca_train.shape)    # (352, 1)
-print('xhpca_test.shape : ', xhpca_test.shape)     # (152, 1)
+print('xhite_train.shape : ', xhite_train.shape)    # (352, 1)
+print('xhite_test.shape : ', xhite_test.shape)     # (152, 1)
 
-xs_train = xs_train.reshape(352, 5, 1)   
-xs_test = xs_test.reshape(152, 5, 1)
-xhpca_train = xhpca_train.reshape(352, 1, 1)   
-xhpca_test = xhpca_test.reshape(152, 1, 1)
+xsam_train = xsam_train.reshape(352, 5, 1)   
+xsam_test = xsam_test.reshape(152, 5, 1)
+xhite_train = xhite_train.reshape(352, 1, 1)   
+xhite_test = xhite_test.reshape(152, 1, 1)
 
 
 # 2. 모델 구성
@@ -110,7 +111,8 @@ model.summary()
 
 es = EarlyStopping(monitor='loss', patience=20)
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit([xs_train, xhpca_train], ysam_train, epochs=300, batch_size=1, verbose=1, validation_split=0.2, callbacks=[es])
+model.fit([xsam_train, xhite_train], ysam_train, epochs=1, batch_size=1, 
+                    verbose=1, validation_split=0.2, callbacks=[es])
 
 # All input arrays (x) should have the same number of samples. Got array shapes: [(504, 5), (509, 5)]
 # 앙상블 모델 할때 주의 점 : 행 숫자가 중요함 열은 안맞아도 됨!
@@ -118,24 +120,28 @@ model.fit([xs_train, xhpca_train], ysam_train, epochs=300, batch_size=1, verbose
 
 # 4. 평가, 예측
 
-loss, mse = model.evaluate([xs_test, xhpca_test], ysam_test, batch_size=1)
+loss, mse = model.evaluate([xsam_test, xhite_test], ysam_test, batch_size=1)
 
 print("loss : ", loss)
 print("mse : ", mse)
 
-print(xs_test.shape)           #(152, 5, 1)
-print(xhpca_train.shape)         #(352, 1, 1)
+print(xsam_test.shape)           #(152, 5, 1)
+print(xhite_train.shape)         #(352, 1, 1)
 
-x1_predict = xs_test[-1]
-x2_predict = xhpca_test[-1]
+x1_predict = xsam_test[-1]
+x2_predict = xhite_test[-1]
 
-print(xs_test[-1].shape)       # (5, 1)
-print(xhpca_test[-1].shape)      # (1, 1)
+print(xsam_test[-1].shape)       # (5, 1)
+print(xhite_test[-1].shape)      # (1, 1)
+
+print('xsam_test[-1] : ', xsam_test[-1] )    
+print('xhite_test[-1] : ', xhite_test[-1])     
+
 
 # x1_predict = x1_predict.reshape(1, 5, 1)
 # x2_predict = x2_predict.reshape(1, 1, 1)
 
-y_predict = model.predict([[x1_predict], [x2_predict]])  # 2020년 6월 2일 삼성전자 주가 예측
+y_predict = model.predict([[x1_predict], [x2_predict]])  
 
 print('2020년 6월 2일 삼성전자 주가 : ', y_predict)
 
@@ -145,17 +151,17 @@ print('ysam_train.shape : ', ysam_train.shape)  # (352, )
 print('ysam_test.shape : ', ysam_test.shape)    # (152, )
 
 
-# 또는 밑에 처럼 해도 가능
+# 또는 밑에도 가능
 
 '''
-# print(xs_test[-1].shape)
+# print(xsam_test[-1].shape)
 # print(xhite_test[-1].shape)
 
-# y_predict = model.predict([[xs_test[-1]], [xhite_test[-1]]])
+# y_predict = model.predict([[xsam_test[-1]], [xhite_test[-1]]])
 # print('y_predict : ', y_predict)
 '''
 
-ysam_predict = model.predict([xs_test, xhpca_test])
+ysam_predict = model.predict([xsam_test, xhite_test])
 
 print('ysam_predict : ', ysam_predict)
 print('ysam_predict.shape : ', ysam_predict.shape)

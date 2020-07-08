@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 
 img = cv2.imread("./OpenCV/sample.jpg")
+
 # 노이즈 제거
 my_img = cv2.fastNlMeansDenoisingColored(img)
 

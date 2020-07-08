@@ -1,0 +1,8 @@
+*.csv
+*.h5
+*.hdf5
+*.jpg
+data/*
+exfish3/*
+*.mp4
+*.pkl

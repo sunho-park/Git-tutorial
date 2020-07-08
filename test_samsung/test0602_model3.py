@@ -41,9 +41,43 @@ print(y_sam.shape)        # (504, )
 x_hit = hite[5:510, :]
 print(x_hit.shape)        # (504, 5)
 
+# train test 나누기 
+xsam_train, xsam_test, ys_train, ys_test, xhite_train, xhite_test = train_test_split(x_sam, y_sam, x_hit, shuffle=False, test_size=0.3)
+
+print(xsam_train.shape)           # (352, 5)
+print(xsam_test.shape)            # (152, 5)
+print(xhite_train.shape)        # (352, 5)
+print(xhite_test.shape)         # (152, 5)
+
+# 표준화
+scaler = StandardScaler()
+
+scaler.fit(xsam_train)
+xsam_train = scaler.transform(xsam_train)
+xsam_test = scaler.transform(xsam_test)
+
+scaler.fit(xhite_train)
+xhite_train = scaler.transform(xhite_train)
+xhite_test = scaler.transform(xhite_test)
+
+# PCA
+pca = PCA(n_components=3)
+
+pca.fit(xhite_train)
+xhite_train = pca.transform(xhite_train)
+xhite_test = pca.transform(xhite_test)
+
 # 차원 변경
-x_sam = x_sam.reshape(504, 5, 1)   #(504, 5, 1)
-x_hit = x_hit.reshape(504, 5, 1)   #(504, 5, 1)
+xsam_train = xsam_train.reshape(352, 5, 1)   
+xsam_test = xsam_test.reshape(152, 5, 1)   
+xhite_train = xhite_train.reshape(352, 3, 1)   
+xhite_test = xhite_test.reshape(152, 3, 1)   
+
+print(xsam_train.shape)
+print(xsam_test.shape)
+print(xhite_train.shape)
+print(xhite_test.shape)
+
 
 # 2. 모델 구성
 input1 = Input(shape=(5, 1))
@@ -55,9 +89,8 @@ x1 = Dense(100)(x1)
 x1 = Dropout(0.5)(x1)
 x1 = Dense(100)(x1)
 x1 = Dense(100)(x1)
-x1 = Dropout(0.5)(x1)
 
-input2 = Input(shape=(5, 1))
+input2 = Input(shape=(3, 1))
 x2 = LSTM(100)(input2)
 x2 = Dense(100)(x2)
 x2 = Dropout(0.5)(x2)
@@ -66,13 +99,9 @@ x2 = Dense(100)(x2)
 x2 = Dropout(0.5)(x2)
 x2 = Dense(100)(x2)
 x2 = Dense(100)(x2)
-x2 = Dropout(0.5)(x2)
 
-merge = concatenate([x1, x2]) 
+merge = concatenate([x1, x2]) # or  Concatenate()([x1, x2])
 output = Dense(1)(merge)
-# Concatenate은 Sequential형 concatenate은 함수형함수
-# fusion = Concatenate()([x1, x2])
-# output = Dense(1)(fusion)
 
 model = Model(inputs=[input1, input2], outputs = output)
 
@@ -80,31 +109,36 @@ model.summary()
 
 # 3. 컴파일, 훈련
 model.compile(loss='mse', optimizer='adam', metrics=['mse'])
-model.fit([x_sam, x_hit], y_sam, epochs=1, batch_size=1)
+model.fit([xsam_train, xhite_train], ys_train, epochs=1, batch_size=1)
 
 # All input arrays (x) should have the same number of samples. Got array shapes: [(504, 5), (509, 5)]
 # 앙상블 모델 할때 주의 점 : 행숫자 까지를 맞춰줘야함.
 
 # 4. 평가, 예측
 
-loss, mse = model.evaluate([x_sam, x_hit], y_sam, batch_size=1)
+loss, mse = model.evaluate([xsam_test, xhite_test], ys_test, batch_size=1)
 
 print("loss : ", loss)
 print("mse : ", mse)
 
-print(x_sam)
-print(x_sam.shape)
-x1_predict = x_sam[-1]
-x2_predict = x_hit[-1]
+#print(xsam_test)
+print(xsam_test.shape)
+x1_predict = xsam_test[-1]
+x2_predict = xhite_test[-1]
 
-print(x_sam[-1].shape) # (5, 1)
-print(x_hit[-1].shape) # (5, 1)
+print(xsam_test[-1].shape)    # (5, 1)
+print(xhite_test[-1].shape) # (5, 1)
 
 x1_predict = x1_predict.reshape(1, 5, 1)
-x2_predict = x2_predict.reshape(1, 5, 1)
-
-
+x2_predict = x2_predict.reshape(1, 3, 1)
 
 y_predict = model.predict([x1_predict, x2_predict])
+print('2020년 6월 2일 삼성전자 주가 : ', y_predict)
 
-print('y_predict : ', y_predict)
+
+print(xsam_test.shape)  # (152, 5, 1)
+print(xhite_test.shape)  # (152, 5)
+
+y_pred = model.predict([xsam_test, xhite_test])
+print('y_pred : ', y_pred)
+

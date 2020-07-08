@@ -66,7 +66,6 @@ multi_XGB.fit(x_train, y_train)
 
 print(len(multi_XGB.estimators_))   # 4
 
-
 # print(multi_XGB.estimators_[0].feature_importances_)
 # print(multi_XGB.estimators_[1].feature_importances_)
 # print(multi_XGB.estimators_[2].feature_importances_)
@@ -105,4 +104,7 @@ for i in range(len(multi_XGB.estimators_)):
         # submission
         a = np.arange(10000,20000)
         submission = pd.DataFrame(y_predict, a)
-        submission.to_csv('./dacon/comp1/sub_XG%i_%.5f.csv'%(i, mae),index = True, header=['hhb','hbo2','ca','na'],index_label='id')
+        submission.to_csv('./dacon/comp1/submission.csv'%(i, mae),index = True, header=['hhb','hbo2','ca','na'],index_label='id')
+
+
+

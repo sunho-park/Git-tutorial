@@ -70,3 +70,4 @@ hite = hite.values
 
 np.save('./data/samsung.npy', arr=samsung)
 np.save('./data/hite.npy', arr=hite)
+

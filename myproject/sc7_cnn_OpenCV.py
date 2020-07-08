@@ -22,7 +22,10 @@ x = x.astype('float32') /255
 
 # 레이블 데이터를 One-hot 벡터로 변환하기 4
 y = keras.utils.np_utils.to_categorical(y, out_y)
-
+print('x : ', x)
+print(x.shape)
+print('y : ', y)
+print(y.shape)  # (600, 3)
 # 학습 전용과 테스트 전용 구분하기 5
 x_train, x_test, y_train, y_test = train_test_split(x, y, shuffle=True, train_size=0.8)
 print(len(x_test))
@@ -36,13 +39,13 @@ for i, xi in enumerate(x_train):                             # i : index(0~479),
     for angle in range(-30, 30, 5):                          # [-30, -25, -20, -15, -10, -5, 0, 5, 10, 15, 20, 25] = 12개
         # 회전 시키기
         center = (16, 16)                                    # 회전 중심
-        matrix = cv2.getRotationMatrix2D(center, angle, 1.0) # affin에 필요한 행렬 만들기 (회전의 중심, 회전의 각도, 배율)
+        matrix = cv2.getRotationMatrix2D(center, angle, 1.0) # affin에 필요한 행렬 만들기 (회전 중심, 회전 각도, 배율)
         xi2 = cv2.warpAffine(xi, matrix, (32, 32))           # affin 변환 (변환하려는 이미지, 위에서 생성한 행렬, 사이즈)
-        x_new.append(xi2)                                    # 각 이미지당 회전된 12개의 이미지                  x : 480개 * 12 = 5760 append
-        y_new.append(yi)                                     # [1, 0, 0] or [0, 1, 0] or [0, 0, 1] 중에 1개의   y : 480개 * 12 = 5760 append  
+        x_new.append(xi2)                                    # 각 이미지당 회전된 12개의 이미지       x : 480개 * 12 = 5760 
+        y_new.append(yi)                                     # [1, 0, 0] or [0, 1, 0] or [0, 0, 1]  y : 480개 * 12 = 5760
         
         # 좌우 반전  [12] * 2 =24
-        xi3 = cv2.flip(xi2, 1)                               # flip(이미지 데이터, 반전방향) 반전방향이 0 이면 X축 중심으로 양수면 Y축 중심으로 음수면 두축을 중심으로 반전
+        xi3 = cv2.flip(xi2, 1)                               # flip(이미지 데이터, 반전방향) 양수이므로 y축 반전
         x_new.append(xi3)
         y_new.append(yi)
 
@@ -79,4 +82,3 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
 model.save_weights('./myproject/photos-model-light.hdf5')
-

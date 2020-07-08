@@ -11,4 +11,8 @@ filt = np.array([[0, 1, 0],
 # 팽창 처리
 my_img = cv2.dilate(img, filt)
 cv2.imshow("sample", my_img)
-cv2.imwrite("list15_27.jpg", my_img)
+cv2.imwrite("list15_27_dilate.jpg", my_img)
+
+# 침식 처리
+my_img = cv2.erode(img, filt)
+cv2.imshow("list15_27_erode.jpg", my_img)

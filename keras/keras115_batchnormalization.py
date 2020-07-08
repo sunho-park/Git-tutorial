@@ -7,6 +7,12 @@
 # 3. 시그모이드 함수나 하이퍼볼릭탄젠트 함수를 사용하더라도 기울기 소실 문제가 크게 개선
 # 4. BatchNormalization을 적용하고 뒤에 Activation 사용
 
+# 쓰는 이유 
+
+# 다른 층들과 독립적. 각각의 층이 스스로 학습 진행할수록 도움. 
+# 은닉층들의 정규화 필요
+# 층이 깊어질수록 입력특성에서 정규화한 효과없어진다. 
+
 # https://shuuki4.wordpress.com/2016/01/13/batch-normalization-%EC%84%A4%EB%AA%85-%EB%B0%8F-%EA%B5%AC%ED%98%84/
 # https://blog.naver.com/ehdsnck/221769032128
 

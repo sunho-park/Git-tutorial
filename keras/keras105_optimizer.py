@@ -13,7 +13,7 @@ model.add(Dense(3))
 model.add(Dense(11))
 model.add(Dense(1))
 
-from keras.optimizers import Adam, RMSprop, SGD, Adadelta, Adagrad, Nadam 
+from keras.optimizers import Adam, RMSprop, SGD, Adadelta, Adagrad, Nadam
 # 경사 하강법의 base를 두고 있다.
 # optimizer = Adam(lr=0.001)             # loss :  [0.026419956237077713, 0.026419956237077713],    pred1 :  [[3.4618902]]
 # optimizer = RMSprop(lr=0.001)          # loss :  [0.0002723459037952125, 0.0002723459037952125],  pred1 :  [[3.478336]]

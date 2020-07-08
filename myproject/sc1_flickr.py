@@ -4,7 +4,7 @@ from urllib.request import urlretrieve   # 웹에 있는 이미지 다운
 from pprint import pprint
 import os, time, sys
 
-# 1. AP 키 지정하기 
+# API 키
 key = "68cf7a5d518edd6fd3e1e2f38521951f"
 secret = "b0574c0cc2fd4752"
 wait_time=0.5 # 대기 시간 (초)

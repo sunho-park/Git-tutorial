@@ -12,9 +12,6 @@ loss = L1*reduce_sum(abs(x))
 loss = L2*reduce_sum(square(x))
 
 그 다음 레이어로 전달되는 가중치 값을 줄이겠다.
-
-
-
 '''
 
 from keras.datasets import cifar10
