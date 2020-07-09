@@ -47,7 +47,6 @@ accuracy = tf.reduce_mean(tf.cast(tf.equal(predicted, y),    # tf.equal(x, y) : 
 
 # 여기 까지 붕어빵 틀을 만들어 놓은것 뿐 / 실행은 sess.run
 
-# tf.cast // tf.equal?
 
 with tf.Session() as sess:
     sess.run(tf.global_variables_initializer())

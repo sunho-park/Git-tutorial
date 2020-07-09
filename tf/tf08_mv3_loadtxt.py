@@ -10,9 +10,8 @@ dataset = np.loadtxt('./data/csv/data-01-test-score.csv',
 x_data = dataset[:, 0:-1]
 y_data = dataset[:, [-1]]
 
-print(x_data.shape)
-print(y_data.shape)
-
+print(x_data.shape)     # (25, 3)
+print(y_data.shape)     # (25, 1)
 
 ##################################################################################
 x = tf.placeholder(tf.float32, shape=[None, 3]) 
@@ -37,7 +36,6 @@ for step in range(1001):
     
     if step % 10==0:
         print(step, "cost:", cost_val, "\n 예측값 : ", hy_val)
-
 
 # https://hunkim.github.io/ml/
 
