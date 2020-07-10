@@ -27,7 +27,7 @@ w2 = tf.Variable(tf.random_normal([100, 50]), name='weight2')
 b2 = tf.Variable(tf.random_normal([50]), name='bias2')
 layer2 = tf.sigmoid(tf.matmul(layer1, w2) + b2)
 
-# 레이어2 layer2 
+# 레이어3 
 # model.add(Dense(1))
 w3 = tf.Variable(tf.random_normal([50, 1]), name="weight3")
 b3 = tf.Variable(tf.random_normal([1]), name='bias3')

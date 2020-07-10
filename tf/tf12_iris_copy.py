@@ -42,7 +42,7 @@ train_step = tf.train.GradientDescentOptimizer(0.05).minimize(cross_entropy)
 
 sess = tf.InteractiveSession()
 
-#1000번학습
+# 1000번학습
 tf.global_variables_initializer().run()
 for _ in range(1000):
     #Usually send batches to the training step. But since the dataset is small sending all

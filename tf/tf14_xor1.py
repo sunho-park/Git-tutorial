@@ -1,3 +1,4 @@
+# 케라스에서는 히든레이어를 줘서 해결함
 import tensorflow as tf
 import numpy as np
 
@@ -7,8 +8,9 @@ x_data = np.array([[0, 0], [0, 1], [1, 0], [1, 1]], dtype=np.float32)
 y_data = np.array([[0], [1], [1], [0]], dtype=np.float32)
 
 # x, y, w, b, hypothesis, cost, train
-# sigmoid
-# predict, accuracy
+# sigmoid, predict, accuracy
+
+
 x = tf.placeholder(tf.float32, shape=[None, 2])
 y = tf.placeholder(tf.float32, shape=[None, 1])
 

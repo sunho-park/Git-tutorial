@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 x = [1, 2, 3]
 y = [1, 2, 3]
 
-w = tf.placeholder(tf.float32)
+w = tf.placeholder(tf.float32) 
 
 hypothesis = x*w
 

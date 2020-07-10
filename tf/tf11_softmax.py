@@ -25,7 +25,7 @@ y_data = [[0, 0, 1],
 x = tf.placeholder('float', shape=[None, 4])
 y = tf.placeholder('float', shape=[None, 3])
 
-w = tf.Variable(tf.random_normal([4, 3], name='weight')) # wx + b
+w = tf.Variable(tf.random_normal([4, 3]), name='weight') # wx + b
 b = tf.Variable(tf.random_normal([1, 3]), name='bias') # [1], [3], [1, 3] 다됨  // 덧셈이라서 [3, 1]은 안됨
 
 hypothesis = tf.nn.softmax(tf.matmul(x, w) + b)

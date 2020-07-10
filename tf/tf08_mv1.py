@@ -32,7 +32,7 @@ for step in range(2001):
                             feed_dict={x1: x1_data, x2: x2_data,
                                     x3: x3_data, y: y_data})
     if step % 10==0:
-        print(step, "cost:", cost_val, "\n", hy_val)
+        print(step, "cost:", cost_val, "\n", hy_val, a)
 
 
 
