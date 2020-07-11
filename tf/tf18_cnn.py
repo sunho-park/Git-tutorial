@@ -3,7 +3,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.datasets import mnist
-from tensorflow.examples.tutorials.mnist import input_data
+# from tensorflow.examples.tutorials.mnist import input_data
 
 (x_train, y_train), (x_test, y_test) = mnist.load_data()
 
