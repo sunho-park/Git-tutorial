@@ -15,7 +15,7 @@ def before_first_request():
 
 @app.after_request
 def after_reques(response):
-    print("1.매 HTTP 요청이 처리되기 나서 실행됩니다.")
+    print("1.매 HTTP 요청이 처리되고 나서 실행됩니다.")
     return response
 
 @app.before_request
