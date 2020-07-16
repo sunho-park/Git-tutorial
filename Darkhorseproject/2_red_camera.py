@@ -2,8 +2,7 @@ import cv2
 import numpy as np
 
 # 웹카메라로부터 입력받기
-
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(r'C:\Users\bitcamp\Desktop\test.m4v')
 while True:
     # 이미지 추출하기
     _, frame = cap.read()

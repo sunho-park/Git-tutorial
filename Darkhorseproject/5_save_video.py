@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 
 # 카메라 입력받기 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(r'C:\Users\bitcamp\Desktop\test.m4v')
 # 동영상 출력 전용 객체 생성하기
 fmt = cv2.VideoWriter_fourcc('m', 'p', '4', 'v')
 fps = 20.0
