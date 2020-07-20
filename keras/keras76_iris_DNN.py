@@ -11,8 +11,6 @@ print('x.shape : ', x.shape) #(150, 4)
 print('y : ', y)
 print('y.shape : ', y.shape) #(150, ) - > (150, 1)
 
-
-
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x, y, shuffle=False, test_size=0.1)
 

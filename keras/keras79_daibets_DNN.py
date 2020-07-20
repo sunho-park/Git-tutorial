@@ -31,8 +31,6 @@ from sklearn.decomposition import PCA
 pca = PCA(n_components=column)
 x=pca.fit_transform(x)
 '''
-
-
 print(dataset.DESCR)
 
 df = pd.DataFrame(dataset.data, columns=dataset.feature_names)

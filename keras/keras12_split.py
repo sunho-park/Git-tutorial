@@ -11,9 +11,6 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, random_state=66, shuff
 x_val, x_test, y_val, y_test = train_test_split(x_test, y_test, random_state=66, shuffle=False, test_size=0.66)
 #x_test, y_test, random_state=99, test_size=0.5
 
-
-
-
 # x_train = x[:60] #0~59
 # x_val = x[60:80] #60~79
 # x_test = x[80:]  #80~66
