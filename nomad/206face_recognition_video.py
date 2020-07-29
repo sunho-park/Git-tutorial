@@ -3,11 +3,12 @@ import face_recognition
 import pickle
 import time
 
-image_file = 'image/marathon_01.jpg'
-encoding_file = 'encodings.pickle'
+file_name = r'C:\Users\bitcamp\Desktop\opencv_dnn_202005\video\son_02.mp4'
+encoding_file = r'C:\Users\bitcamp\Desktop\opencv_dnn_202005\encodings.pickle'
 unknown_name = 'Unknown'
 # Either cnn  or hog. The CNN method is more accurate but slower. HOG is faster but less accurate.
-model_method = 'cnn'
+model_method = 'hog'
+output_name = 'video/output_' + model_method + '.avi'
 
 def detectAndDisplay(image):
     start_time = time.time()
@@ -68,19 +69,48 @@ def detectAndDisplay(image):
         y = top - 15 if top - 15 > 15 else top + 15
         cv2.putText(image, name, (left, y), cv2.FONT_HERSHEY_SIMPLEX,
             0.75, color, line)
-
     end_time = time.time()
     process_time = end_time - start_time
     print("=== A frame took {:.3f} seconds".format(process_time))
     # show the output image
+    image = cv2.resize(image, None, fx=0.5, fy=0.5)
     cv2.imshow("Recognition", image)
     
+    # if the video writer is None *AND* we are supposed to write
+    # the output video to disk initialize the writer
+    global writer
+    if writer is None and output_name is not None:
+        fourcc = cv2.VideoWriter_fourcc(*"MJPG")
+        writer = cv2.VideoWriter(output_name, fourcc, 24,
+                (image.shape[1], image.shape[0]), True)
+
+    # if the writer is not None, write the frame with recognized
+    # faces to disk
+    if writer is not None:
+        writer.write(image)
+		
 # load the known faces and embeddings
 data = pickle.loads(open(encoding_file, "rb").read())
 
-# load the input image
-image = cv2.imread(image_file)
-detectAndDisplay(image)
+#-- 2. Read the video stream
+cap = cv2.VideoCapture(file_name)
+writer = None
+if not cap.isOpened:
+    print('--(!)Error opening video capture')
+    exit(0)
+while True:
+    ret, frame = cap.read()
+    if frame is None:
+        print('--(!) No captured frame -- Break!')
+        # close the video file pointers
+        cap.release()
+        # close the writer point
+        writer.release()
+        break
+    detectAndDisplay(frame)
+    # Hit 'q' on the keyboard to quit!
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-cv2.waitKey(0)
 cv2.destroyAllWindows()
+

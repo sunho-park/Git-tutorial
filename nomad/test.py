@@ -10,4 +10,3 @@ b = y+ h//2
 print(center)
 print(a)
 print(b)
-
