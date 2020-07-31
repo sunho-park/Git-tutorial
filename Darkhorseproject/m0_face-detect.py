@@ -9,7 +9,7 @@ cascade = cv2.CascadeClassifier(cascade_file)
 img = cv2.imread("./Darkhorseproject/girl.jpg")
 img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
-# 얼굴 인식하기 ---(3)
+# 얼굴 인식하기 ---(3)-
 face_list = cascade.detectMultiScale(img_gray, minSize=(150, 150))
 
 # 결과 확인하기---(4)
