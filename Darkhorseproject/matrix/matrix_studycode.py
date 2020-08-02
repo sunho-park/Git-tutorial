@@ -24,26 +24,40 @@ def find_faces(img):
 
         shape = sp(img, d)
         shapes.append(shape)
-        
+
         # convert dlib shape to numpy array
         for i in range(0, 68):
             shapes_np[k][i] = (shape.part(i).x, shape.part(i).y)
-
-        
-    
+            
     return rects, shapes, shapes_np
 
 img_bgr = cv2.imread('./Darkhorseproject/matrix/neo.jpg')
 img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
+_, img_shapes, _ = find_faces(img_rgb)
+
+
+
+np.save('./Darkhorseproject/matrix/descs.npy', descs)
+
+rects, shapes, _ = find_faces(img_rgb)
+
 faces = detector(img_rgb, 1)
+face_descriptor = facerec.compute_face_descriptor(img_rgb, shape)
+print(face_descriptor)
 
 
-print("{} faces are detected.", format(len(faces)))
-print(faces)
 
-cv2.imshow('face of neo', img_bgr)
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+
+# shape_check = np.zeros((len(faces), 68, 2))
+# print('shape_check', shape_check)
+# print('shape_check.shape', shape_check.shape)
+
+# print("{} faces are detected.", format(len(faces)))
+# print(faces)
+
+# cv2.imshow('face of neo', img_bgr)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
 
 

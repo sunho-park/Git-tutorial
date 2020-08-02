@@ -40,17 +40,14 @@ def encode_faces(img, shapes):
 #Compute Saved Face Descriptions
 
 img_paths = {
-    'neo': './Darkhorseproject/matrix/neo.jpg',
-    'trinity': './Darkhorseproject/matrix/trinity.jpg',
-    'morpheus': './Darkhorseproject/matrix/morpheus.jpg',
-    'smith': './Darkhorseproject/matrix/smith.jpg'
+    'moon': './Darkhorseproject/matrix/moon.jpg',
+    'joguk': './Darkhorseproject/matrix/joguk.jpg',
 }
 
 descs = {
-    'neo': None,
-    'trinity': None,
-    'morpheus': None,
-    'smith': None
+    'moon': None,
+    'joguk': None,
+
 }
 
 for name, img_path in img_paths.items():
@@ -60,12 +57,12 @@ for name, img_path in img_paths.items():
     _, img_shapes, _ = find_faces(img_rgb)
     descs[name] = encode_faces(img_rgb, img_shapes)[0]
 
-np.save('./Darkhorseproject/matrix/descs.npy', descs)
+np.save('./Darkhorseproject/matrix/descs1.npy', descs)
 print('descs', descs)
 
 #Compute Input
 
-img_bgr = cv2.imread('./Darkhorseproject/matrix/matrix_reload.jpg')
+img_bgr = cv2.imread('./Darkhorseproject/matrix/test1.jpg')
 img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
 rects, shapes, _ = find_faces(img_rgb)
@@ -82,7 +79,7 @@ for i, desc in enumerate(descriptors):
     for name, saved_desc in descs.items():
         dist = np.linalg.norm([desc] - saved_desc, axis=1) #유클리디안 거리
 
-        if dist < 0.6:
+        if dist < 0.55:
             found = True
 
             text = ax.text(rects[i][0][0], rects[i][0][1], name,
@@ -91,7 +88,7 @@ for i, desc in enumerate(descriptors):
             rect = patches.Rectangle(rects[i][0],
                                  rects[i][1][1] - rects[i][0][1],
                                  rects[i][1][0] - rects[i][0][0],
-                                 linewidth=2, edgecolor='b', facecolor='none')
+                                 linewidth=2, edgecolor='w', facecolor='none')
             ax.add_patch(rect)
 
             break
@@ -106,6 +103,6 @@ for i, desc in enumerate(descriptors):
         ax.add_patch(rect)
 
 plt.axis('off')
-plt.savefig('./Darkhorseproject/matrix/output.png')
+plt.savefig('./Darkhorseproject/matrix/output3.png')
 plt.show()
 

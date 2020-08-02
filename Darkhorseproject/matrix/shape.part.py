@@ -21,11 +21,15 @@ print(dets) # rectangles[[(353, 114) (532, 293)]]
 #http://dlib.net/python/#dlib.point
 for k, d in enumerate(dets):
     shape = predictor(img, d)
+    
+z = shape.part(0).x
+print('z', z)
 
 vec = np.empty([68, 2], dtype = int)
 for b in range(68):
     vec[b][0] = shape.part(b).x
     vec[b][1] = shape.part(b).y
+
 
 print(vec)
 print(len(vec))
