@@ -91,7 +91,7 @@ for i, desc in enumerate(descriptors):
             rect = patches.Rectangle(rects[i][0],
                                  rects[i][1][1] - rects[i][0][1],
                                  rects[i][1][0] - rects[i][0][0],
-                                 linewidth=2, edgecolor='b', facecolor='none')
+                                 linewidth=2, edgecolor='w', facecolor='none')
             ax.add_patch(rect)
 
             break
