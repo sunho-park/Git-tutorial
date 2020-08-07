@@ -40,13 +40,17 @@ def encode_faces(img, shapes):
 #Compute Saved Face Descriptions
 
 img_paths = {
-    'moon': './Darkhorseproject/matrix/moon.jpg',
-    'joguk': './Darkhorseproject/matrix/joguk.jpg',
+    'moon': './Darkhorseproject/matrix/m.jpg',
+    'joguk': './Darkhorseproject/matrix/jo.jpg',
+    'sin' : './Darkhorseproject/matrix/sin.jpg',
+    'joseho' : './Darkhorseproject/matrix/joseho1.jpg',
 }
 
 descs = {
     'moon': None,
     'joguk': None,
+    'sin': None,
+    'joseho': None,
 
 }
 
@@ -62,7 +66,7 @@ print('descs', descs)
 
 #Compute Input
 
-img_bgr = cv2.imread('./Darkhorseproject/matrix/test1.jpg')
+img_bgr = cv2.imread('./Darkhorseproject/matrix/sintest1.jpg')
 img_rgb = cv2.cvtColor(img_bgr, cv2.COLOR_BGR2RGB)
 
 rects, shapes, _ = find_faces(img_rgb)
@@ -103,6 +107,6 @@ for i, desc in enumerate(descriptors):
         ax.add_patch(rect)
 
 plt.axis('off')
-plt.savefig('./Darkhorseproject/matrix/output3.png')
+plt.savefig('./Darkhorseproject/matrix/output5.png')
 plt.show()
 
