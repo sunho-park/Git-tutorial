@@ -84,7 +84,7 @@ def conv2_layer(x):
     
     return x
  
- 
+
  
 def conv3_layer(x):        
     shortcut = x    
@@ -215,7 +215,6 @@ def conv5_layer(x):
             shortcut = x                  
  
     return x
- 
  
  
 x = conv1_layer(input_tensor)

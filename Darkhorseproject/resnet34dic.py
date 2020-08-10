@@ -44,13 +44,14 @@ def conv2_layer(x):
  
     for i in range(3):
         if (i == 0):
-        
-            x = Conv2D(64, (3, 3), strides=(1, 1), padding='same')(x)
+            x = Conv2D(64, (3, 3), strides=(1, 1), padding='valid')(x)
             x = BatchNormalization()(x)
             x = Activation('relu')(x)
+            
+
  
-            x = Conv2D(256, (1, 1), strides=(1, 1), padding='valid')(x)
-            shortcut = Conv2D(256, (1, 1), strides=(1, 1), padding='valid')(shortcut)            
+            x = Conv2D(64, (3, 3), strides=(1, 1), padding='same')(x)
+            shortcut = Conv2D(64, (3, 3), strides=(1, 1), padding='same')(shortcut)            
             x = BatchNormalization()(x)
             shortcut = BatchNormalization()(shortcut)
  
@@ -60,15 +61,13 @@ def conv2_layer(x):
             shortcut = x
  
         else:
-            x = Conv2D(64, (1, 1), strides=(1, 1), padding='valid')(x)
+            x = Conv2D(64, (3, 3), strides=(1, 1), padding='valid')(x)
             x = BatchNormalization()(x)
             x = Activation('relu')(x)
             
-            x = Conv2D(64, (3, 3), strides=(1, 1), padding='same')(x)
-            x = BatchNormalization()(x)
-            x = Activation('relu')(x)
+   
  
-            x = Conv2D(256, (1, 1), strides=(1, 1), padding='valid')(x)
+            x = Conv2D(64, (3, 3), strides=(1, 1), padding='same')(x)
             x = BatchNormalization()(x)            
  
             x = Add()([x, shortcut])   
@@ -79,13 +78,13 @@ def conv2_layer(x):
     return x
  
  
- 
+''' 
 def conv3_layer(x):        
     shortcut = x    
     
     for i in range(4):     
         if(i == 0):            
-            x = Conv2D(128, (1, 1), strides=(2, 2), padding='valid')(x)
+            x = Conv2D(128, (3, 3), strides=(2, 2), padding='valid')(x)
             x = BatchNormalization()(x)
             x = Activation('relu')(x)        
             
@@ -93,8 +92,8 @@ def conv3_layer(x):
             x = BatchNormalization()(x)
             x = Activation('relu')(x)  
  
-            x = Conv2D(512, (1, 1), strides=(1, 1), padding='valid')(x)
-            shortcut = Conv2D(512, (1, 1), strides=(2, 2), padding='valid')(shortcut)
+            x = Conv2D(128, (3, 3), strides=(1, 1), padding='valid')(x)
+            shortcut = Conv2D(128, (3, 3), strides=(2, 2), padding='valid')(shortcut)
             x = BatchNormalization()(x)
             shortcut = BatchNormalization()(shortcut)            
  
@@ -211,12 +210,12 @@ def conv5_layer(x):
     return x
  
  
- 
+''' 
 x = conv1_layer(input_tensor)
 x = conv2_layer(x)
-x = conv3_layer(x)
-x = conv4_layer(x)
-x = conv5_layer(x)
+# x = conv3_layer(x)
+# x = conv4_layer(x)
+# x = conv5_layer(x)
  
 x = GlobalAveragePooling2D()(x)
 output_tensor = Dense(K, activation='softmax')(x)
