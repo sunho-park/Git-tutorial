@@ -1,4 +1,4 @@
-import keras
+import tensorflow.keras
 import matplotlib.pyplot as plt
 import numpy as np
 from sklearn.model_selection import train_test_split
@@ -33,7 +33,7 @@ import sc4_cnn_model
 model = sc4_cnn_model.get_model(in_shape, out_y)
 
 # 훈련 7
-hist = model.fit(x_train, y_train, batch_size=4, epochs=60, verbose=1, validation_split=0.25)
+hist = model.fit(x_train, y_train, batch_size=4, epochs=45, verbose=1, validation_split=0.25)
 
 # 평가 8
 loss, acc = model.evaluate(x_test, y_test,verbose=1)
@@ -55,4 +55,6 @@ plt.legend(['train', 'test'], loc='upper left')
 plt.show()
 
 # 가중치 저장
-model.save_weights('./myproject/photos-model-light.hdf5')
+model.save_weights('./myproject/photos-model-light_vgg.hdf5')
+
+# acc이 1에 수렴하는 반면 val_Acc 이 낮게나옴 0.75정도

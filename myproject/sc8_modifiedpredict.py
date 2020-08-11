@@ -1,5 +1,5 @@
 import sc4_cnn_model
-import keras
+import tensorflow.keras
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image

@@ -1,5 +1,5 @@
 import sc4_cnn_model as cnn
-import keras
+import tensorflow.keras
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
@@ -44,6 +44,7 @@ def input_photo(path):                        # path = 'test1.jpg'
     predict = predict.reshape(3, )
     print(predict)
     print(predict.shape)
+    print('sum(predict)', sum(predict))
     #predict = model.predict([x])[0]              # (1, 3)을 스칼라로 바꿔주기 
     #print(model.predict([x]))                    # [[9.99989390e-01 1.00640455e-05 6.33899845e-07]]
     #print("predict : ", predict)                 # [9.99989390e-01 1.00640455e-05 1.00640455e-05]
