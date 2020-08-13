@@ -1,13 +1,15 @@
 import numpy as np
 import dlib
 import cv2
+import os
+from PIL import Image
 
 RIGHT_EYE = list(range(36, 42))
 LEFT_EYE = list(range(42, 48))
 EYES = list(range(36, 48))
 
 predictor_file = r'C:\Users\bitcamp\Desktop\opencv_dnn_202005/shape_predictor_68_face_landmarks.dat'
-image_file = r'C:\Users\bitcamp\Desktop\opencv_dnn_202005/image/marathon_03.jpg'
+image_file = r'D:\study1\Darkhorseproject\matrix\sin5.jpg'
 MARGIN_RATIO = 1.5
 OUTPUT_SIZE = (224, 224)
 
