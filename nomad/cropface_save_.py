@@ -4,6 +4,9 @@ import cv2
 import os
 from PIL import Image
 import glob, os
+from tqdm import tqdm
+ 
+
 RIGHT_EYE = list(range(36, 42))
 LEFT_EYE = list(range(42, 48))
 EYES = list(range(36, 48))
@@ -41,13 +44,52 @@ def getCropDimension(rect, center):
     return (startX, endX, startY, endY)    
 
 
+
 from PIL import Image
 from tqdm import tqdm
 import glob
- 
-filename_list = glob.glob(r'D:\kface/117\*.jpg')
-filename_list.sort()
- 
+import os
+
+'''
+data_path = ("D:\kface")
+for i in os.listdir(data_path):
+    dir = os.path.join(data_path, i + '/')
+    print(dir)
+    
+    filename_list = glob.glob(dir + '*.jpg')
+    filename_list.sort()
+    print(filename_list)
+'''
+
+
+data_path = ("./face_dataset")
+for i in os.listdir(data_path):
+    dir = os.path.join(data_path, i + '/')
+    print('dir : ', dir)
+    print(len(os.listdir(data_path)))
+
+    filename_list = glob.glob(dir + '*.jpg')
+    filename_list.sort()
+    print('filename_list :', filename_list)
+    print('len(filename_list) :', len(filename_list))
+    print('len(dir) : ', len(dir) )
+
+    fill_number = os.listdir(data_path)
+    # 저장경로
+    savedir = "./face_dataset/" + str(i)
+    if not os.path.exits(savedir):
+        os.mkdir(savedir)
+
+    
+    # # 저장경로
+    # savedir = "./face_dataset/" + str(idx).zfill(fill_number) + '.jpg'
+    # if not os.path.exists(savedir):
+    #     os.mkdir(savedir)
+
+    # savename = r'D:\kface\0_crop\crop_' + str(idx).zfill(fill_number) + '.jpg'  
+    # crop_image = cv2.imwrite(savename, output)
+
+'''
 fill_number = len(str(len(filename_list)))
 
 for idx, filename in enumerate(tqdm(filename_list), 1):
@@ -58,6 +100,8 @@ for idx, filename in enumerate(tqdm(filename_list), 1):
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 
     rects = detector(gray, 1)
+
+
 
     for (i, rect) in enumerate(rects):
         (x, y, w, h) = getFaceDimension(rect)
@@ -101,22 +145,26 @@ for idx, filename in enumerate(tqdm(filename_list), 1):
         warped = cv2.warpAffine(image_origin, metrix, (image_width, image_height),
             flags=cv2.INTER_CUBIC)
         
-        # cv2.imshow("warpAffine", warped)
+        cv2.imshow("warpAffine", warped)
         (startX, endX, startY, endY) = getCropDimension(rect, eyes_center)
         croped = warped[startY:endY, startX:endX]
         output = cv2.resize(croped, OUTPUT_SIZE) 
-        # cv2.imshow("output", output)
-        savename = r'D:\kface\crop117/' + str(idx).zfill(fill_number) + '.jpg'
-        # if not os.path.exists(savename):
-        #     os.mkdir(savename)
+        cv2.imshow("output", output)
 
+        # isWritten = cv2.imwrite('./face_dataset/cropimage.jpg', output)
 
+        # if isWritten:
+        #     print('Image is successfully saved as file.')
+        
+        # 저장경로
+        savedir = "./face_dataset/" + str(idx).zfill(fill_number) + '.jpg'
+        if not os.path.exists(savedir):
+            os.mkdir(savedir)
+        
+        savename = r'D:\kface\0_crop\crop_' + str(idx).zfill(fill_number) + '.jpg'  
         crop_image = cv2.imwrite(savename, output)
 
-        # 저장경로
-        # savedir = "./flickr/" + dir
-        # if not os.path.exists(savedir):
-        #     os.mkdir(savedir)
+
 
 
         for (i, point) in enumerate(show_parts):
@@ -124,8 +172,8 @@ for idx, filename in enumerate(tqdm(filename_list), 1):
             y = point[0,1]
             cv2.circle(image, (x, y), 1, (0, 255, 255), -1)
 
-# cv2.imshow("Face Alignment", image)
+cv2.imshow("Face Alignment", image)
 cv2.waitKey(0)   
 cv2.destroyAllWindows()
 
-
+'''
