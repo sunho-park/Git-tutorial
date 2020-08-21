@@ -45,7 +45,7 @@ from PIL import Image
 from tqdm import tqdm
 import glob
  
-filename_list = glob.glob(r'D:\kface/117\*.jpg')
+filename_list = glob.glob(r'D:\kface/395\*.jpg')
 filename_list.sort()
  
 fill_number = len(str(len(filename_list)))
@@ -106,7 +106,7 @@ for idx, filename in enumerate(tqdm(filename_list), 1):
         croped = warped[startY:endY, startX:endX]
         output = cv2.resize(croped, OUTPUT_SIZE) 
         # cv2.imshow("output", output)
-        savename = r'D:\kface\crop117/' + str(idx).zfill(fill_number) + '.jpg'
+        savename = r'D:\kface\crop395/' + str(idx).zfill(fill_number) + '.jpg'
         # if not os.path.exists(savename):
         #     os.mkdir(savename)
 
