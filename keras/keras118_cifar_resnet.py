@@ -29,7 +29,7 @@ from keras.regularizers import l1, l2, l1_l2
 input_tensor = Input(shape=(32, 32, 3)) 
 rn101 = ResNet101(include_top=False, weights='imagenet', input_tensor=input_tensor)
 
-# include_top은 원래 모델의 최후 전결합층을 사용할지 여부 False 일 경우 원래 ㅁ도델의 합성곱층의 특징 추출 부분만 사용
+# include_top은 원래 모델의 최후 전결합층을 사용할지 여부 False 일 경우 원래 모델의 합성곱층의 특징 추출 부분만 사용
 # 이후 층에는 스스로 작성한 모델을 추가할 수 있다.
 # weights에 imagenet을 지정하면 Imagenet 에서 학습한 가중치를 사용하고 None을 지정하면 임의의 가중치를 사용
 

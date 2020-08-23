@@ -88,8 +88,6 @@ model.save('./model/sample/mnist/mnist_model_save.h5')
 
 model.save_weights('./model/sample/mnist/mnist_weight.h5')
 
-
-
 # 평가, 예측
 loss, acc = model.evaluate(x_test, y_test)
 

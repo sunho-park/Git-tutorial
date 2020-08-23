@@ -1,6 +1,6 @@
 import numpy as np
-from keras.layers import Dense, LSTM
-from keras.models import Model, Sequential
+from tensorflow.keras.layers import Dense, LSTM
+from tensorflow.keras.models import Model, Sequential
 # 1. 데이터 
 x = np.array(range(1, 11))
 y = np.array([1, 0, 1, 0, 1, 0, 1, 0, 1, 0])

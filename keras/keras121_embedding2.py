@@ -30,8 +30,8 @@ from keras.models import Sequential
 from keras.layers import Dense, Embedding, Flatten
 
 model = Sequential()
-# model.add(Embedding(word_size, 10, input_length=5))       # 벡터형식, 와꾸 맞춰주는 부분 (25(임의의숫자넣어도 돌아감), output 다음층으로 전달되는?, input) 
-model.add(Embedding(25, 10, input_length=5))                #  (None, 5, 10)
+model.add(Embedding(word_size, 10, input_length=5))       # 벡터형식, 와꾸 맞춰주는 부분 (25(임의의숫자넣어도 돌아감), output 다음층으로 전달되는?, input) 
+# model.add(Embedding(25, 10, input_length=5))                #  (None, 5, 10)
 # model.add(Embedding(25, 10))                
 model.add(Flatten())
 model.add(Dense(1, activation='sigmoid')) # label가 0이냐 1이냐 구분만해주면되서

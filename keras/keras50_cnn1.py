@@ -1,5 +1,5 @@
-from keras.models import Sequential
-from keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten
 
 model = Sequential()
 model.add(Conv2D(10, (2, 2), input_shape=(10, 10, 1)))    #(9, 9, 10) filter 10 이 (2, 2)로 자른것의 장수

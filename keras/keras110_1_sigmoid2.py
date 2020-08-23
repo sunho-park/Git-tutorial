@@ -1,4 +1,4 @@
-# 1. 데이터
+q# 1. 데이터
 import numpy as np
 x_train = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 # y_train = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])

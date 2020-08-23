@@ -1,6 +1,6 @@
 import numpy as np
-from keras.layers import Dense, LSTM
-from keras.models import Model, Sequential
+from tensorflow.keras.layers import Dense, LSTM
+from tensorflow.keras.models import Model, Sequential
 
 
 
@@ -10,23 +10,23 @@ from keras.models import Model, Sequential
 
 # 1. 데이터 
 x = np.array(range(1, 11))
-y = np.array([1, 2, 3, 4, 5, 1, 2, 3, 4, 5]) #스칼라 10개 벡터 1 디멘션 1 
+y = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) #스칼라 10개 / 벡터 1 디멘션 1 
 
 # 1번째 방법
 
 print("y : \n", y)
 print("y.shape : ", y.shape) #(10, ) -> (10, 1)
 
-y = y.reshape(10, 1) # or y= y.reshape(-1, 1)
+# y = y.reshape(10, 1) # or y= y.reshape(-1, 1)
 
-from sklearn.preprocessing import OneHotEncoder
+# from sklearn.preprocessing import OneHotEncoder
 
-aaa = OneHotEncoder()
-aaa.fit(y)
-y = aaa.transform(y).toarray()      
+# aaa = OneHotEncoder()
+# aaa.fit(y)
+# y = aaa.transform(y).toarray()      
 
-print("y : \n", y)
-print("y.shape : ", y.shape)
+# print("y : \n", y)
+# print("y.shape : ", y.shape)
 
 print("======================================================")
 '''
@@ -65,13 +65,13 @@ model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))
 model.add(Dense(10))
-model.add(Dense(5, activation='softmax')) # y.shape = (10, 6)
+model.add(Dense(1, activation='softmax')) # y.shape = (10, 6)
 model.summary()
 
 # 3. 컴파일, 훈련
 
 model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['acc']) #분류모델에서는 acc
-model.fit(x, y, epochs=10, batch_size=1)
+model.fit(x, y, epochs=50, batch_size=1)
 
 
 # 4. 예측, 평가
@@ -85,6 +85,8 @@ x_predict = np.array([1, 2, 3, 4, 5])
 print(x_predict.shape)                  # (5, )
 y_predict = model.predict(x_predict)
 print("y_predict : \n", y_predict)
+print("sum(y_predict) : \n", sum(y_predict))
+
 print("y_predict.shape : \n", y_predict.shape) # (5, 5)
 
 y_predict = np.argmax(y_predict, axis=1).reshape(-1)
