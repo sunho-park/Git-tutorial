@@ -96,6 +96,15 @@ def findEuclideanDistance(source_representation, test_representation):
 
 vgg_face_descriptor = Model(inputs=model.layers[0].input, outputs=model.layers[-2].output)
 
+print('vgg_face_descriptor', vgg_face_descriptor)
+
+a = model.layers[0]
+b = model.layers[1]
+c = model.layers[-2]
+print('a', a)
+print('b', b)
+print('c', c)
+
 epsilon = 0.60
 
 def verifyFace(img1, img2):
@@ -126,76 +135,76 @@ def verifyFace(img1, img2):
 #6
 verifyFace("amanda.jpg", "amanda1.jpg")
 verifyFace("amanda.jpg", "jenifer.jpg")
-verifyFace("amanda1.jpg", "jenifer.jpg")
-verifyFace("ann.jpg", "jenifer.jpg")
-verifyFace("ann.jpg", "amanda1.jpg")
-verifyFace("amanda.jpg", "ann.jpg")
-#8
-verifyFace("leo.jpg", "leo2.jpg")
-verifyFace("leo.jpg", "tom.jpg")
-verifyFace("leo2.jpg", "tom.jpg")
-verifyFace("will.jpg", "wpr.jpg")
-verifyFace("wpr.jpg", "wpr2.jpg")
-verifyFace("rb.jpg", "rb2.jpg")
-verifyFace("rb.jpg", "wpr.jpg")
-verifyFace("rb.jpg", "tom.jpg")
-#6
-verifyFace("nicolas.jpg", "nicolas2.jpg")
-verifyFace("nicolas.jpg", "tom.jpg")
-verifyFace("nicolas.jpg", "rb.jpg")
-verifyFace("nicolas.jpg", "wpr.jpg")
-verifyFace("nicolas.jpg", "wpr2.jpg")
-verifyFace("nicolas.jpg", "leo.jpg")
-#5
-verifyFace("nicolas2.jpg", "tom.jpg")
-verifyFace("nicolas2.jpg", "rb.jpg")
-verifyFace("nicolas2.jpg", "wpr.jpg")
-verifyFace("nicolas2.jpg", "wpr2.jpg")
-verifyFace("nicolas2.jpg", "leo.jpg")
+# verifyFace("amanda1.jpg", "jenifer.jpg")
+# verifyFace("ann.jpg", "jenifer.jpg")
+# verifyFace("ann.jpg", "amanda1.jpg")
+# verifyFace("amanda.jpg", "ann.jpg")
+# # #8
+# verifyFace("leo.jpg", "leo2.jpg")
+# verifyFace("leo.jpg", "tom.jpg")
+# verifyFace("leo2.jpg", "tom.jpg")
+# verifyFace("will.jpg", "wpr.jpg")
+# verifyFace("wpr.jpg", "wpr2.jpg")
+# verifyFace("rb.jpg", "rb2.jpg")
+# verifyFace("rb.jpg", "wpr.jpg")
+# verifyFace("rb.jpg", "tom.jpg")
+# #6
+# verifyFace("nicolas.jpg", "nicolas2.jpg")
+# verifyFace("nicolas.jpg", "tom.jpg")
+# verifyFace("nicolas.jpg", "rb.jpg")
+# verifyFace("nicolas.jpg", "wpr.jpg")
+# verifyFace("nicolas.jpg", "wpr2.jpg")
+# verifyFace("nicolas.jpg", "leo.jpg")
+# #5
+# verifyFace("nicolas2.jpg", "tom.jpg")
+# verifyFace("nicolas2.jpg", "rb.jpg")
+# verifyFace("nicolas2.jpg", "wpr.jpg")
+# verifyFace("nicolas2.jpg", "wpr2.jpg")
+# verifyFace("nicolas2.jpg", "leo.jpg")
 
-# # 25 중에 4개 틀림
+# # # 25 중에 4개 틀림
 
-verifyFace("hb.jpg", "hb1.jpg")
-verifyFace("hb.jpg", "jdg.jpg")
-verifyFace("hb.jpg", "jh.jpg")
-verifyFace("hb.jpg", "ssh.jpg")
-verifyFace("hb.jpg", "lsw.jpg")
-verifyFace("hb.jpg", "ljj.jpg")
-#8
-verifyFace("hb1.jpg", "jdg.jpg")
-verifyFace("hb1.jpg", "jh.jpg")
-verifyFace("hb1.jpg", "ssh.jpg")
-verifyFace("hb1.jpg", "lsw.jpg")
-verifyFace("hb1.jpg", "ljj.jpg")
-verifyFace("hb1.jpg", "ssh1.jpg")
-verifyFace("hb1.jpg", "jh1.jpg")
-verifyFace("hb1.jpg", "lsw1.jpg")
-#6
-verifyFace("ksh.jpg", "ksh2.jpg")
-verifyFace("ksh.jpg", "jdg.jpg")
-verifyFace("ksh.jpg", "jh.jpg")
-verifyFace("ksh.jpg", "ssh.jpg")
-verifyFace("ksh.jpg", "lsw.jpg")
-verifyFace("ksh.jpg", "ljj.jpg")
-#5
-verifyFace("ksh2.jpg", "ljj1.jpg")
-verifyFace("ksh2.jpg", "ssh.jpg")
-verifyFace("ksh2.jpg", "lsw1.jpg")
-verifyFace("ksh2.jpg", "jdj.jpg")
+# verifyFace("hb.jpg", "hb1.jpg")
+# verifyFace("hb.jpg", "jdg.jpg")
+# verifyFace("hb.jpg", "jh.jpg")
+# verifyFace("hb.jpg", "ssh.jpg")
+# verifyFace("hb.jpg", "lsw.jpg")
+# verifyFace("hb.jpg", "ljj.jpg")
+# #8
+# verifyFace("hb1.jpg", "jdg.jpg")
+# verifyFace("hb1.jpg", "jh.jpg")
+# verifyFace("hb1.jpg", "ssh.jpg")
+# verifyFace("hb1.jpg", "lsw.jpg")
+# verifyFace("hb1.jpg", "ljj.jpg")
+# verifyFace("hb1.jpg", "ssh1.jpg")
+# verifyFace("hb1.jpg", "jh1.jpg")
+# verifyFace("hb1.jpg", "lsw1.jpg")
+# #6
+# verifyFace("ksh.jpg", "ksh2.jpg")
+# verifyFace("ksh.jpg", "jdg.jpg")
+# verifyFace("ksh.jpg", "jh.jpg")
+# verifyFace("ksh.jpg", "ssh.jpg")
+# verifyFace("ksh.jpg", "lsw.jpg")
+# verifyFace("ksh.jpg", "ljj.jpg")
+# #5
+# verifyFace("ksh2.jpg", "ljj1.jpg")
+# verifyFace("ksh2.jpg", "ssh.jpg")
+# verifyFace("ksh2.jpg", "lsw1.jpg")
+# verifyFace("ksh2.jpg", "jdj.jpg")
 
-# 25개중 11개
+# # 25개중 11개
 
 # Cosine 유사도:  0.39293617010116577
 # Euclidean distance:  99.559845
 
 
-verifyFace("jomask.jpg", "jomask1.jpg")
-verifyFace("jo.jpg", "jomask.jpg")
-verifyFace("jo.jpg", "jomask1.jpg")
+# verifyFace("jomask.jpg", "jomask1.jpg")
+# verifyFace("jo.jpg", "jomask.jpg")
+# verifyFace("jo.jpg", "jomask1.jpg")
 
-verifyFace("lee.jpg", "leemask.jpg")
-verifyFace("lee.jpg", "leemask1.jpg")
-verifyFace("leemask1.jpg", "leemask.jpg")
+# verifyFace("lee.jpg", "leemask.jpg")
+# verifyFace("lee.jpg", "leemask1.jpg")
+# verifyFace("leemask1.jpg", "leemask.jpg")
 
 
 # verifyFace("m.jpg", "m2.jpg")
@@ -208,20 +217,20 @@ verifyFace("leemask1.jpg", "leemask.jpg")
 # verifyFace("maskm1.jpg", "maskm2.jpg")
 
 
-verifyFace("sin.jpg", "sin2.jpg")
-verifyFace("sin.jpg", "sin3.jpg")
-verifyFace("sin.jpg", "sin1.jpg")
-verifyFace("sin.jpg", "sin4.jpg")
-verifyFace("sin4.jpg", "sin5.jpg")
+# verifyFace("sin.jpg", "sin2.jpg")
+# verifyFace("sin.jpg", "sin3.jpg")
+# verifyFace("sin.jpg", "sin1.jpg")
+# verifyFace("sin.jpg", "sin4.jpg")
+# verifyFace("sin4.jpg", "sin5.jpg")
 
 
-# test
-verifyFace("11.jpg", "5.jpg")
-verifyFace("22.jpg", "5.jpg")
-verifyFace("33.jpg", "5.jpg")
-verifyFace("44.jpg", "5.jpg")
+# # test
+# verifyFace("11.jpg", "5.jpg")
+# verifyFace("22.jpg", "5.jpg")
+# verifyFace("33.jpg", "5.jpg")
+# verifyFace("44.jpg", "5.jpg")
 
-verifyFace("11.jpg", "66.jpg")
-verifyFace("22.jpg", "66.jpg")
-verifyFace("33.jpg", "66.jpg")
-verifyFace("44.jpg", "66.jpg")
+# verifyFace("11.jpg", "66.jpg")
+# verifyFace("22.jpg", "66.jpg")
+# verifyFace("33.jpg", "66.jpg")
+# verifyFace("44.jpg", "66.jpg")
