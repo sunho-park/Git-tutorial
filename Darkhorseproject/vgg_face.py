@@ -11,13 +11,13 @@ print(cv2.__version__)      # 4.2.0
 # 2.2.0
 # 3.4.4
 
-from tensorflow.keras.models import Model, Sequential
-from tensorflow.keras.layers import Input, Convolution2D, ZeroPadding2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
+from keras.models import Model, Sequential
+from keras.layers import Input, Convolution2D, ZeroPadding2D, MaxPooling2D, Flatten, Dense, Dropout, Activation
 from PIL import Image
 import numpy as np
-from tensorflow.keras.preprocessing.image import load_img, save_img, img_to_array
-from tensorflow.keras.applications.imagenet_utils import preprocess_input
-from tensorflow.keras.preprocessing import image
+from keras.preprocessing.image import load_img, save_img, img_to_array
+from keras.applications.imagenet_utils import preprocess_input
+from keras.preprocessing import image
 import matplotlib.pyplot as plt
 
 model = Sequential()
@@ -70,7 +70,7 @@ model.summary()
 #https://drive.google.com/file/d/1CPSeum3HpopfomUEK1gybeuIVoeJT_Eo/view?usp=sharing
 #or you can find the detailed documentation https://sefiks.com/2018/08/06/deep-face-recognition-with-keras/
 
-from tensorflow.keras.models import model_from_json
+from keras.models import model_from_json
 model.load_weights('./Darkhorseproject/matrix/vgg_face_weights.h5')
 
 #
