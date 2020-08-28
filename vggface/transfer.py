@@ -46,7 +46,7 @@ model_A_clone.set_weights(model_A.get_weights())
 for layer in model_B_on_A.layers[:-1]:
     layer.trainable = False
 
-model_B_on_A.compile(loss='categorical_crossentropy', optimizer="sgd", metrics=["accuracy"])
+model_B_on_A.compile(loss='sparse_categorical_crossentropy', optimizer="sgd", metrics=["accuracy"])
 
 
 histroy = model_B_on_A.fit(x_train, y_train, epochs=4, validationsplit=0.25)
@@ -55,7 +55,7 @@ for layer in model_B_on_A.layers[:-1]:
     layer.trainable = True
 
 optimizer = keras.optimizer.SGD(lr=1e-4)    # 기본 학습률은 1e-2
-model_B_on_A.compile(loss="categorical_crossentropy", optimizer = optimizer, metrics = ["accuracy"])
+model_B_on_A.compile(loss="sparse_categorical_crossentropy", optimizer = optimizer, metrics = ["accuracy"])
 
 history = model_B_on_A.fit(x_train, y_train, epochs=16, validationsplit=0.25)
 
