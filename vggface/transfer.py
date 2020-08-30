@@ -11,6 +11,7 @@ from keras.models import load_model
 from keras.utils import np_utils
 from sklearn.model_selection import train_test_split
 
+
 # 데이터 읽기
 photos = np.load('./vggface/kface.npz')
 
@@ -49,15 +50,15 @@ for layer in model_B_on_A.layers[:-1]:
 model_B_on_A.compile(loss='sparse_categorical_crossentropy', optimizer="sgd", metrics=["accuracy"])
 
 
-histroy = model_B_on_A.fit(x_train, y_train, epochs=4, validationsplit=0.25)
+histroy = model_B_on_A.fit(x_train, y_train, epochs=4, validation_split=0.25)
 
 for layer in model_B_on_A.layers[:-1]:
     layer.trainable = True
 
-optimizer = keras.optimizer.SGD(lr=1e-4)    # 기본 학습률은 1e-2
+optimizer = keras.optimizers.SGD(lr=1e-4)    # 기본 학습률은 1e-2
 model_B_on_A.compile(loss="sparse_categorical_crossentropy", optimizer = optimizer, metrics = ["accuracy"])
 
-history = model_B_on_A.fit(x_train, y_train, epochs=16, validationsplit=0.25)
+history = model_B_on_A.fit(x_train, y_train, epochs=16, validation_split=0.25)
 
 loss, acc = model_B_on_A.evaluate(x_train, y_train)
 print('정답률=', acc, '손실률=', loss)
