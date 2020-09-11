@@ -13,7 +13,7 @@ from sklearn.model_selection import train_test_split
 
 
 # 데이터 읽기
-photos = np.load('./vggface/kface.npz')
+photos = np.load('./vggface/3low_kface100.npz')
 
 x = photos['x']
 y = photos['y']
@@ -50,7 +50,7 @@ for layer in model_B_on_A.layers[:-1]:
 model_B_on_A.compile(loss='sparse_categorical_crossentropy', optimizer="sgd", metrics=["accuracy"])
 
 
-histroy = model_B_on_A.fit(x_train, y_train, epochs=4, validation_split=0.25)
+histroy = model_B_on_A.fit(x_train, y_train, epochs=16, validation_split=0.25)
 
 for layer in model_B_on_A.layers[:-1]:
     layer.trainable = True

@@ -55,5 +55,5 @@ model.add(Activation('softmax'))
 
 model.summary()
 
-model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['mse'])
+model.compile(loss="sparse_categorical_crossentropy", optimizer='sgd', metrics=['mse'])
 model.save("./vggface/vggfacemodel.h5")
